@@ -103,10 +103,13 @@ class GUIValueGroup
     print("element IDS:\n");
     for(int i = 0; i < elementIDS.length; i++)
     {
-       println(gui.elements.get(elementIDS[i]).ID); 
+       println("  -"+gui.elements.get(elementIDS[i]).ID); 
     }
     print("values:\n");
-    printArray(values);
+    for(int i = 0; i < elementIDS.length; i++)
+    {
+       println("  -"+nf(values[i],0,2)); 
+    }
     println();
   }
 }

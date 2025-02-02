@@ -79,14 +79,14 @@ class MinMaxSlider extends Slider
   {
     return random(percent, percent2);
   }
-  
+
   void PrintDebug()
   {
-     println("type: MinMax Slider");
-     println("name: " + ID);
-     println("min: " + map(percent,0,1,minmax.x,minmax.y) + " | max: " + map(percent2,0,1,minmax.x,minmax.y));
-     println("value: " + nf(GetValue(),0,2) + " (chosen randomly between minmax)");
-     println("text direction: " + textSide);
-     println();
+    println("ID: " + ID);
+    println("  -type: MinMax Slider");
+    println("  -min: " + map(percent, 0, 1, minmax.x, minmax.y) + " | max: " + map(percent2, 0, 1, minmax.x, minmax.y));
+    println("  -value: " + nf(GetValue(), 0, 2) + " (chosen randomly between minmax)");
+    println("  -text direction: " + textSide);
+    println();
   }
 }

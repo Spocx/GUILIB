@@ -117,10 +117,10 @@ class Slider extends GUIElement
   
   void PrintDebug()
   {
-     println("type: Slider");
-     println("name: " + ID);
-     println("value: " + nf(GetValue(),0,2));
-     println("text direction: " + textSide);
+     println("ID: " + ID);
+     println("  -type: Slider");
+     println("  -value: " + nf(GetValue(),0,2));
+     println("  -text direction: " + textSide);
      println();
   }
 }
