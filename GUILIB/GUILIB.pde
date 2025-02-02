@@ -3,6 +3,9 @@ PVector mousepos = new PVector(0, 0);
 GUI gui;
 StyleSetting style;
 
+//temp
+boolean keyDown = false;
+
 void setup()
 {
   size(800, 800);
@@ -12,9 +15,12 @@ void setup()
   gui = new GUI();
 
   Slider s = new Slider(new PVector(100, 100), 200, 20, new PVector(20, 200), 0.5); 
-  gui.AddElement(s,"slider1");
+  gui.AddElement(s, "slider1");
   MinMaxSlider s2 = new MinMaxSlider(new PVector(100, 140), 200, 20, new PVector(0, 100), 0.5, 0.7);
-  gui.AddElement(s2, "Slider2");
+  gui.AddElement(s2, "slider2");
+  gui.CreateValueGroup("group");
+  gui.AddToValueGroup(s,"group");
+  gui.AddToValueGroup(s2,"group");
 }
 
 void draw()
@@ -25,4 +31,17 @@ void draw()
 
   gui.Update();
   gui.Show();
+
+  if (keyPressed && key == ' ')
+  {
+    if (!keyDown)
+    { 
+      keyDown = true;
+      gui.PrintDebug();
+      print();
+    }
+  } else
+  {
+    keyDown = false;
+  }
 }

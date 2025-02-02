@@ -13,4 +13,5 @@ class GUIElement
    void Update(){};
    void Show(){};
    float GetValue() {return 0;};
+   void PrintDebug(){};
 }

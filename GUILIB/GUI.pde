@@ -12,7 +12,10 @@ class GUI
     for (int i = 0; i < valueGroups.size(); i++)
     {
       GUIValueGroup group = valueGroups.get(i);
-      group.values[i] = elements.get(group.elementIDS[i]).GetValue();
+      for (int j = 0; j < group.elementIDS.length; j++)
+      {
+        group.values[j] = elements.get(group.elementIDS[j]).GetValue();
+      }
     }
   }
 
@@ -65,6 +68,22 @@ class GUI
     }
     return null;
   }
+
+  void PrintDebug()
+  {
+    println("=======GUI class=======");
+    println("===[Elements===]");
+    for (int i = 0; i < elements.size(); i++)
+    {
+      elements.get(i).PrintDebug();
+    }
+
+    println("[===ValueGroups===]");
+    for (int i = 0; i < valueGroups.size(); i++)
+    {
+      valueGroups.get(i).PrintDebug();
+    }
+  }
 }
 
 class GUIValueGroup
@@ -76,5 +95,18 @@ class GUIValueGroup
   GUIValueGroup(String identifier)
   {
     ID = identifier;
+  }
+
+  void PrintDebug()
+  {
+    println("groupname: "+ ID);
+    print("element IDS:\n");
+    for(int i = 0; i < elementIDS.length; i++)
+    {
+       println(gui.elements.get(elementIDS[i]).ID); 
+    }
+    print("values:\n");
+    printArray(values);
+    println();
   }
 }
