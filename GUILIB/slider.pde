@@ -100,10 +100,11 @@ class Slider extends GUIElement
     }
   }
 
-  float GetValue()
+  Float GetValue()
   {
     return map(percent, 0, 1, minmax.x, minmax.y);
   }
+ 
 
   float GetPercent()
   {

@@ -70,7 +70,7 @@ class MinMaxSlider extends Slider
     }
   }
 
-  float GetValue()
+  Float GetValue()
   {
     return map(random(percent, percent2), 0, 1, minmax.x, minmax.y);
   }

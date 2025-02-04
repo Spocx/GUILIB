@@ -1,21 +1,12 @@
 class GUI
 {
   ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
-  ArrayList<GUIValueGroup> valueGroups = new ArrayList<GUIValueGroup>();
+  GUIElementGroups elementGroups = new GUIElementGroups();
   void Update()
   {
     for (int i = 0; i < elements.size(); i++)
     {
       elements.get(i).Update();
-    }
-
-    for (int i = 0; i < valueGroups.size(); i++)
-    {
-      GUIValueGroup group = valueGroups.get(i);
-      for (int j = 0; j < group.elementIDS.length; j++)
-      {
-        group.values[j] = elements.get(group.elementIDS[j]).GetValue();
-      }
     }
   }
 
@@ -33,28 +24,39 @@ class GUI
     element.ID = identifier;
   }
 
-  void CreateValueGroup(String identifier)
+  void CreateElementGroup(String identifier)
   {
-    valueGroups.add(new GUIValueGroup(identifier));
+    elementGroups.add(new GUIElementGroup(identifier));
   }
 
-  void AddToValueGroup(GUIElement element, String groupID)
+  void AddToElementGroup(GUIElement element, String groupID)
   {
-    for (int i = 0; i < valueGroups.size(); i++)
+    for (int i = 0; i < elementGroups.size(); i++)
     {
-      GUIValueGroup group = valueGroups.get(i); 
+      GUIElementGroup group = elementGroups.get(i); 
       if (group.ID == groupID)
       {
         for (int j = 0; j < elements.size(); j++)
         {
           if (elements.get(j) == element)
           {
-            group.elementIDS = append(group.elementIDS, j);
-            group.values = append(group.values, 0);
+            group.add(element);
           }
         }
       }
     }
+  }
+
+  GUIElementGroup GetElementGroup(String identifier)
+  {
+     for(int i = 0; i < elementGroups.size(); i++)
+     {
+        if(elementGroups.get(i).ID == identifier)
+        {
+           return elementGroups.get(i); 
+        }
+     }
+     return null;
   }
 
   GUIElement GetElement(String identifier)
@@ -71,45 +73,47 @@ class GUI
 
   void PrintDebug()
   {
-    println("=======GUI class=======");
-    println("===[Elements===]");
+    println("===============================GUI class===================================");
+    println("======================[Elements===========================]");
     for (int i = 0; i < elements.size(); i++)
     {
       elements.get(i).PrintDebug();
     }
 
-    println("[===ValueGroups===]");
-    for (int i = 0; i < valueGroups.size(); i++)
+    println("[==========================Element groups=====================]");
+    for (int i = 0; i < elementGroups.size(); i++)
     {
-      valueGroups.get(i).PrintDebug();
+      elementGroups.get(i).PrintDebug();
     }
   }
 }
 
-class GUIValueGroup
+class GUIElementGroup extends ArrayList<GUIElement>
 {
   String ID = "";
-  int[] elementIDS = new int[0];
-  float[] values = new float[0];
 
-  GUIValueGroup(String identifier)
+  GUIElementGroup(String identifier)
   {
+    super();
     ID = identifier;
   }
 
   void PrintDebug()
   {
-    println("groupname: "+ ID);
-    print("element IDS:\n");
-    for(int i = 0; i < elementIDS.length; i++)
+    println("------------groupname: "+ ID + "----------------");
+    print("connected elements");
+    for (GUIElement element : this)
     {
-       println("  -"+gui.elements.get(elementIDS[i]).ID); 
-    }
-    print("values:\n");
-    for(int i = 0; i < elementIDS.length; i++)
-    {
-       println("  -"+nf(values[i],0,2)); 
+      element.PrintDebug();
     }
     println();
+  }
+}
+
+class GUIElementGroups extends ArrayList<GUIElementGroup>
+{
+  GUIElementGroups()
+  {
+    super();
   }
 }
