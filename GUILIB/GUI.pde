@@ -18,45 +18,31 @@ class GUI
     }
   }
 
-  void AddElement(GUIElement element, String identifier)
+  GUIElement AddElement(GUIElement element, String identifier)
   {
     elements.add(element);
     element.ID = identifier;
+    return element;
   }
 
-  void CreateElementGroup(String identifier)
+  GUIElementGroup CreateElementGroup(String identifier)
   {
-    elementGroups.add(new GUIElementGroup(identifier));
+    GUIElementGroup g = new GUIElementGroup(identifier);
+    elementGroups.add(g);
+    return g;
   }
 
-  void AddToElementGroup(GUIElement element, String groupID)
-  {
-    for (int i = 0; i < elementGroups.size(); i++)
-    {
-      GUIElementGroup group = elementGroups.get(i); 
-      if (group.ID == groupID)
-      {
-        for (int j = 0; j < elements.size(); j++)
-        {
-          if (elements.get(j) == element)
-          {
-            group.add(element);
-          }
-        }
-      }
-    }
-  }
 
   GUIElementGroup GetElementGroup(String identifier)
   {
-     for(int i = 0; i < elementGroups.size(); i++)
-     {
-        if(elementGroups.get(i).ID == identifier)
-        {
-           return elementGroups.get(i); 
-        }
-     }
-     return null;
+    for (int i = 0; i < elementGroups.size(); i++)
+    {
+      if (elementGroups.get(i).ID == identifier)
+      {
+        return elementGroups.get(i);
+      }
+    }
+    return null;
   }
 
   GUIElement GetElement(String identifier)
@@ -97,21 +83,74 @@ class GUIElementGroup extends ArrayList<GUIElement>
     super();
     ID = identifier;
   }
-  
-  float   GetFloat (int elementIndex){return (float)  get(elementIndex).GetValue(); }
-  int     GetInt   (int elementIndex){return (int)    get(elementIndex).GetValue(); }
-  boolean GetBool  (int elementIndex){return (boolean)get(elementIndex).GetValue(); }
-  String  GetString(int elementIndex){return (String) get(elementIndex).GetValue(); }
-  byte    GetByte  (int elementIndex){return (byte)   get(elementIndex).GetValue(); }
-  char    GetChar  (int elementIndex){return (char)   get(elementIndex).GetValue(); }
-  color   GetColor (int elementIndex){return (color)  get(elementIndex).GetValue(); }
-  double  GetDouble(int elementIndex){return (double) get(elementIndex).GetValue(); }
-  long    GetLong  (int elementIndex){return (long)   get(elementIndex).GetValue(); }
+
+  float   GetFloat (int elementIndex) {
+    return (float)  get(elementIndex).GetValue();
+  }
+  int     GetInt   (int elementIndex) {
+    return (int)    get(elementIndex).GetValue();
+  }
+  boolean GetBool  (int elementIndex) {
+    return (boolean)get(elementIndex).GetValue();
+  }
+  String  GetString(int elementIndex) {
+    return (String) get(elementIndex).GetValue();
+  }
+  byte    GetByte  (int elementIndex) {
+    return (byte)   get(elementIndex).GetValue();
+  }
+  char    GetChar  (int elementIndex) {
+    return (char)   get(elementIndex).GetValue();
+  }
+  color   GetColor (int elementIndex) {
+    return (color)  get(elementIndex).GetValue();
+  }
+  double  GetDouble(int elementIndex) {
+    return (double) get(elementIndex).GetValue();
+  }
+  long    GetLong  (int elementIndex) {
+    return (long)   get(elementIndex).GetValue();
+  }
+
+  void AddElement(GUIElement element)
+  {
+    boolean add = true;
+    for (GUIElement e : this)
+    {
+      if (e == element)
+      {
+        add = false;
+      }
+    }
+    if (add)
+    {
+      add(element);
+    }
+  }
+
+  void AddElements(GUIElement[] elements)
+  {
+    for (GUIElement tryadd : elements)
+    {
+      boolean add = true;
+      for (GUIElement e : this)
+      {
+        if (e == tryadd)
+        {
+          add = false;
+        }
+      }
+      if (add)
+      {
+        add(tryadd);
+      }
+    }
+  }
 
   void PrintDebug()
   {
     println("------------groupname: "+ ID + "----------------");
-    print("connected elements");
+    print("connected elements\n");
     for (GUIElement element : this)
     {
       element.PrintDebug();
