@@ -111,6 +111,9 @@ class GUIElementGroup extends ArrayList<GUIElement>
   long    GetLong  (int elementIndex) {
     return (long)   get(elementIndex).GetValue();
   }
+  PVector GetVec   (int elementIndex) {
+    return (PVector)get(elementIndex).GetValue();
+  }
 
   void AddElement(GUIElement element)
   {
