@@ -97,6 +97,16 @@ class GUIElementGroup extends ArrayList<GUIElement>
     super();
     ID = identifier;
   }
+  
+  float   GetFloat (int elementIndex){return (float)  get(elementIndex).GetValue(); }
+  int     GetInt   (int elementIndex){return (int)    get(elementIndex).GetValue(); }
+  boolean GetBool  (int elementIndex){return (boolean)get(elementIndex).GetValue(); }
+  String  GetString(int elementIndex){return (String) get(elementIndex).GetValue(); }
+  byte    GetByte  (int elementIndex){return (byte)   get(elementIndex).GetValue(); }
+  char    GetChar  (int elementIndex){return (char)   get(elementIndex).GetValue(); }
+  color   GetColor (int elementIndex){return (color)  get(elementIndex).GetValue(); }
+  double  GetDouble(int elementIndex){return (double) get(elementIndex).GetValue(); }
+  long    GetLong  (int elementIndex){return (long)   get(elementIndex).GetValue(); }
 
   void PrintDebug()
   {
