@@ -8,9 +8,9 @@ class PlotPoint extends GUIElement
     super(_pos, _w, _h);
     mmx = _mmx;
     mmy = _mmy;
-    knob = new PlotPointKnob(new PVector(pos.x,pos.y));
-    knob.pos.x = map(startX,0,1,pos.x+borderMargin,pos.x+w);
-    knob.pos.y = map(startY,0,1,pos.y,pos.y+h-borderMargin);
+    knob = new PlotPointKnob(new PVector(pos.x, pos.y));
+    knob.pos.x = map(startX, 0, 1, pos.x+borderMargin, pos.x+w);
+    knob.pos.y = map(startY, 0, 1, pos.y, pos.y+h-borderMargin);
   }
 
   void Show()
@@ -23,35 +23,35 @@ class PlotPoint extends GUIElement
 
   void DrawValue()
   {
-   fill(style.textColor);
-   textAlign(LEFT,TOP);
-   textSize(16);
-   text("(" + nf(GetValue().x,0,2)+", "+nf(GetValue().y,0,2)+")",pos.x,pos.y+h+5);
+    fill(style.textColor);
+    textAlign(LEFT, TOP);
+    textSize(16);
+    text("(" + nf(GetValue().x, 0, 2)+", "+nf(GetValue().y, 0, 2)+")", pos.x, pos.y+h+5);
   }
 
   void DrawKnob()
   {
     setKnobFill(knob);
-    circle(knob.pos.x,knob.pos.y,knob.r);
+    circle(knob.pos.x, knob.pos.y, knob.r);
   }
-  
+
   void DrawBG()
   {
     fill(style.elementBGColor);
     float ww = w-borderMargin;
     float hh = h-borderMargin;
-    for(int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
-      rect(pos.x+borderMargin-2+ww/10*i+w/10,pos.y,1,h);
-      rect(pos.x,pos.y+hh/10*i,w,1);
+      rect(pos.x+borderMargin-2+ww/10*i+w/10, pos.y, 1, h);
+      rect(pos.x, pos.y+hh/10*i, w, 1);
     }
   }
-  
+
   void DrawBorders()
   {
     fill(style.elementColor);
-    rect(pos.x,pos.y,5,h);
-    rect(pos.x,pos.y+h-5,w,5);
+    rect(pos.x, pos.y, 5, h);
+    rect(pos.x, pos.y+h-5, w, 5);
   }
 
   void Update()
@@ -68,12 +68,12 @@ class PlotPoint extends GUIElement
 
   void PrintDebug()
   {
-     println("ID: " + ID);
-     println("  -type: PlotPoint");
-     println("  -min X: " + mmx.x + " | max X: " +mmx.y );
-     println("  -min Y: " + mmy.x + " | max Y: " +mmy.y );
-     println("  -value: (" + nf(GetValue().x,0,2)+", "+nf(GetValue().y,0,2)+")");
-     println();
+    println("ID: " + ID);
+    println("  -type: PlotPoint");
+    println("  -min X: " + mmx.x + " | max X: " +mmx.y );
+    println("  -min Y: " + mmy.x + " | max Y: " +mmy.y );
+    println("  -value: (" + nf(GetValue().x, 0, 2)+", "+nf(GetValue().y, 0, 2)+")");
+    println();
   }
 
   void setKnobFill(PlotPointKnob knob)
@@ -89,54 +89,27 @@ class PlotPoint extends GUIElement
 
   PVector GetValue()
   {
-    return new PVector(map(knob.pos.x,pos.x+borderMargin,pos.x+w,mmx.x,mmx.y), map(knob.pos.y,pos.y,pos.y+h-borderMargin,mmy.y,mmy.x));
+    return new PVector(map(knob.pos.x, pos.x+borderMargin, pos.x+w, mmx.x, mmx.y), map(knob.pos.y, pos.y, pos.y+h-borderMargin, mmy.y, mmy.x));
   }
 }
 
-class PlotPointKnob
+class PlotPointKnob extends GUIKnob
 {
-  PVector pos;
   float r = 10;
-  float heldOffsetX = 0;
-  float heldOffsetY = 0;
-  boolean hover = false;
-  boolean held = false;
-  boolean mouseDown = false;
 
   PlotPointKnob(PVector _pos)
   {
-    pos = _pos;
+    super(_pos);
   }
 
-  void Update()
+  void CheckHover()
   {
-    if (PVector.sub(mousepos,pos).mag() < r/2)
+    if (PVector.sub(mousepos, pos).mag() < r/2)
     {
       hover = true;
     } else
     {
       hover = false;
-    }
-
-    if (mousePressed)
-    {
-      if (!mouseDown)
-      {
-        mouseDown = true;
-        if ((mouseButton == LEFT) && hover)
-        {
-          if (!held)
-          {
-            heldOffsetX = mousepos.x-pos.x;
-            heldOffsetY = mousepos.y-pos.y;
-            held = true;
-          }
-        }
-      }
-    } else
-    {
-      held = false;
-      mouseDown = false;
     }
   }
 }

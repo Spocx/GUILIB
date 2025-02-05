@@ -18,13 +18,13 @@ class MinMaxSlider extends Slider
     knob2.Update();
     if (knob.held)
     {
-      knob.pos.x = mousepos.x-knob.heldOffset;
+      knob.pos.x = mousepos.x-knob.heldOffsetX;
       knob.pos.x = constrain(knob.pos.x, pos.x, knob2.pos.x-knob.w);
       percent = map(knob.pos.x, pos.x, pos.x+w-knob.w, 0, 1);
     }
     if (knob2.held)
     {
-      knob2.pos.x = mousepos.x-knob2.heldOffset;
+      knob2.pos.x = mousepos.x-knob2.heldOffsetX;
       knob2.pos.x = constrain(knob2.pos.x, knob.pos.x+knob.w, pos.x+w-knob.w);
       percent2 = map(knob2.pos.x, pos.x, pos.x+w-knob2.w, 0, 1);
     }
@@ -52,21 +52,45 @@ class MinMaxSlider extends Slider
       textAlign(CENTER, BOTTOM);
       tpaddx = w*0.5;
       tpaddy = -5;
-      text(nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
+      if (showAsInt)
+      {
+        text(round(map(percent, 0, 1, minmax.x, minmax.y)), pos.x+tpaddx, pos.y+tpaddy);
+      } else
+      {
+        text(nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
+      }
       textAlign(CENTER, TOP);
       tpaddx2 = w*0.5;
       tpaddy2 = h+5;
-      text(nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx2, pos.y+tpaddy2);
+      if (showAsInt)
+      {
+        text(round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x+tpaddx2, pos.y+tpaddy2);
+      } else
+      {
+        text(nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx2, pos.y+tpaddy2);
+      }
     } else
     {
       textAlign(RIGHT, CENTER);
       tpaddx = -5;
       tpaddy = h/2;
-      text(nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
+      if (showAsInt)
+      {
+        text(round(map(percent, 0, 1, minmax.x, minmax.y)), pos.x+tpaddx, pos.y+tpaddy);
+      } else
+      {
+        text(nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
+      }
       textAlign(LEFT, CENTER);
       tpaddx2 = w+5;
       tpaddy2 = h/2;
-      text(nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx2, pos.y+tpaddy2);
+      if (showAsInt)
+      {
+        text(round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x+tpaddx2, pos.y+tpaddy2);
+      } else
+      {
+        text(nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx2, pos.y+tpaddy2);
+      }
     }
   }
 

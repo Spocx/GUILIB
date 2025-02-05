@@ -88,7 +88,7 @@ class GUIElementGroup extends ArrayList<GUIElement>
     return (float)  get(elementIndex).GetValue();
   }
   int     GetInt   (int elementIndex) {
-    return (int)    get(elementIndex).GetValue();
+    return int((float)get(elementIndex).GetValue());
   }
   boolean GetBool  (int elementIndex) {
     return (boolean)get(elementIndex).GetValue();
@@ -167,5 +167,55 @@ class GUIElementGroups extends ArrayList<GUIElementGroup>
   GUIElementGroups()
   {
     super();
+  }
+}
+
+class GUIKnob
+{
+  PVector pos;
+  float heldOffsetX = 0;
+  float heldOffsetY = 0;
+  boolean hover = false;
+  boolean held = false;
+  boolean mouseDown = false;
+
+  GUIKnob(PVector _pos)
+  {
+    pos = _pos;
+  }
+
+  void Update()
+  {
+    CheckHover();
+    UpdateState();
+  }
+
+  void CheckHover()
+  {
+    hover = false;
+  }
+
+  void UpdateState()
+  {
+    if (mousePressed)
+    {
+      if (!mouseDown)
+      {
+        mouseDown = true;
+        if ((mouseButton == LEFT) && hover)
+        {
+          if (!held)
+          {
+            heldOffsetX = mousepos.x-pos.x;
+            heldOffsetY = mousepos.y-pos.y;
+            held = true;
+          }
+        }
+      }
+    } else
+    {
+      held = false;
+      mouseDown = false;
+    }
   }
 }

@@ -2,7 +2,6 @@ color bgc;
 PVector mousepos = new PVector(0, 0);
 GUI gui;
 StyleSetting style;
-T t;
 //temp
 boolean keyDown = false;
 
@@ -25,8 +24,6 @@ void setup()
   g.AddElement(s);
   g.AddElement(s2);
   g.AddElement(p2);
-  
-  t = new T(g);
 }
 
 
@@ -34,36 +31,8 @@ void setup()
 void draw()
 {
   background(bgc);
-
   UpdateGlobals();
+  
   gui.Update();
   gui.Show();
-  t.Show();
-  if (keyPressed && key == ' ')
-  {
-    if (!keyDown)
-    { 
-      keyDown = true;
-      gui.PrintDebug();
-      print();
-    }
-  } else
-  {
-    keyDown = false;
-  }
-}
-
-class T
-{
-  GUIElementGroup values;
-  T(GUIElementGroup group)
-  {
-    values = group;
-  }
-  
-  void Show()
-  {
-     fill(values.GetVec(2).x,values.GetVec(2).y,255);
-     circle(400,400,100);
-  }
 }

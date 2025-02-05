@@ -5,10 +5,11 @@ class Slider extends GUIElement
   float tpaddx = 0, tpaddy = 0;
   SliderKnob knob;
   DIRECTION textSide = DIRECTION.LEFT;
+  Boolean showAsInt = false;
 
   Slider(PVector _pos, float _w, float _h, PVector _minmax, float _startpercent)
   {
-    super(_pos,_w,_h);
+    super(_pos, _w, _h);
 
     minmax = _minmax;
     knob = new SliderKnob(new PVector(pos.x, pos.y), h);
@@ -29,10 +30,15 @@ class Slider extends GUIElement
     knob.Update();
     if (knob.held)
     {
-      knob.pos.x = mousepos.x-knob.heldOffset;
+      knob.pos.x = mousepos.x-knob.heldOffsetX;
       knob.pos.x = constrain(knob.pos.x, pos.x, pos.x+w-knob.w);
       percent = map(knob.pos.x, pos.x, pos.x+w-knob.w, 0, 1);
     }
+  }
+
+  void SetShowInt(boolean asInt)
+  {
+     showAsInt = asInt; 
   }
 
   void DrawBG()
@@ -85,8 +91,15 @@ class Slider extends GUIElement
       textAlign(RIGHT, CENTER);
       break;
     }
-
-    text(nf(GetValue(), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
+    
+    if(showAsInt)
+    {
+      text(round(GetValue()), pos.x+tpaddx, pos.y+tpaddy);
+    }
+    else
+    {
+      text(nf(GetValue(), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
+    }
   }
 
   void setKnobFill(SliderKnob knob)
@@ -104,7 +117,7 @@ class Slider extends GUIElement
   {
     return map(percent, 0, 1, minmax.x, minmax.y);
   }
- 
+
 
   float GetPercent()
   {
@@ -115,35 +128,30 @@ class Slider extends GUIElement
   {
     textSide = dir;
   }
-  
+
   void PrintDebug()
   {
-     println("ID: " + ID);
-     println("  -type: Slider");
-     println("  -value: " + nf(GetValue(),0,2));
-     println("  -text direction: " + textSide);
-     println();
+    println("ID: " + ID);
+    println("  -type: Slider");
+    println("  -value: " + nf(GetValue(), 0, 2));
+    println("  -text direction: " + textSide);
+    println();
   }
 }
 
 
-class SliderKnob
+class SliderKnob extends GUIKnob
 {
-  PVector pos;
   float w = 10;
   float h;
-  float heldOffset = 0;
-  boolean hover = false;
-  boolean held = false;
-  boolean mouseDown = false;
 
   SliderKnob(PVector _pos, float _h)
   {
-    pos = _pos;
+    super(_pos);
     h = _h;
   }
 
-  void Update()
+  void CheckHover()
   {
     if (mousepos.x < pos.x+w && mousepos.x > pos.x && mousepos.y > pos.y && mousepos.y < pos.y+h)
     {
@@ -151,26 +159,6 @@ class SliderKnob
     } else
     {
       hover = false;
-    }
-
-    if (mousePressed)
-    {
-      if (!mouseDown)
-      {
-        mouseDown = true;
-        if ((mouseButton == LEFT) && hover)
-        {
-          if (!held)
-          {
-            heldOffset = mousepos.x-pos.x;
-            held = true;
-          }
-        }
-      }
-    } else
-    {
-      held = false;
-      mouseDown = false;
     }
   }
 }
