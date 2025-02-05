@@ -170,7 +170,7 @@ class GUIElementGroups extends ArrayList<GUIElementGroup>
   }
 }
 
-class GUIKnob
+class GUIButton
 {
   PVector pos;
   float heldOffsetX = 0;
@@ -178,8 +178,10 @@ class GUIKnob
   boolean hover = false;
   boolean held = false;
   boolean mouseDown = false;
+  boolean pressed = false;
+  boolean released = false;
 
-  GUIKnob(PVector _pos)
+  GUIButton(PVector _pos)
   {
     pos = _pos;
   }
@@ -195,6 +197,17 @@ class GUIKnob
     hover = false;
   }
 
+  void SetButtonFill()
+  {
+    if (held) {
+      fill(style.interactableHeldColor);
+    } else if (hover) {
+      fill(style.interactableHoverColor);
+    } else {
+      fill(style.interactableColor);
+    }
+  }
+
   void UpdateState()
   {
     if (mousePressed)
@@ -206,14 +219,25 @@ class GUIKnob
         {
           if (!held)
           {
+            pressed = true;
             heldOffsetX = mousepos.x-pos.x;
             heldOffsetY = mousepos.y-pos.y;
             held = true;
           }
         }
+      } else
+      {
+        pressed = false;
       }
     } else
     {
+      if (held)
+      {
+        released = true;
+      } else
+      {
+        released = false;
+      }
       held = false;
       mouseDown = false;
     }

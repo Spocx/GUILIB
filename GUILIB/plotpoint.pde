@@ -25,7 +25,6 @@ class PlotPoint extends GUIElement
   {
     fill(style.textColor);
     textAlign(LEFT, TOP);
-    textSize(16);
     text("(" + nf(GetValue().x, 0, 2)+", "+nf(GetValue().y, 0, 2)+")", pos.x, pos.y+h+5);
   }
 
@@ -93,7 +92,7 @@ class PlotPoint extends GUIElement
   }
 }
 
-class PlotPointKnob extends GUIKnob
+class PlotPointKnob extends GUIButton
 {
   float r = 10;
 

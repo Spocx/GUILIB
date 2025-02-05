@@ -38,9 +38,9 @@ class MinMaxSlider extends Slider
 
   void DrawKnob()
   {
-    setKnobFill(knob);
+    knob.SetButtonFill();
     rect(knob.pos.x, knob.pos.y, knob.w, knob.h);
-    setKnobFill(knob2);
+    knob2.SetButtonFill();
     rect(knob2.pos.x, knob2.pos.y, knob2.w, knob2.h);
   }
 

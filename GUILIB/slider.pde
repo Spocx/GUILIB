@@ -58,7 +58,7 @@ class Slider extends GUIElement
 
   void DrawKnob()
   {
-    setKnobFill(knob);
+    knob.SetButtonFill();
     rect(knob.pos.x, knob.pos.y, knob.w, knob.h);
   }
 
@@ -102,17 +102,6 @@ class Slider extends GUIElement
     }
   }
 
-  void setKnobFill(SliderKnob knob)
-  {
-    if (knob.held) {
-      fill(style.interactableHeldColor);
-    } else if (knob.hover) {
-      fill(style.interactableHoverColor);
-    } else {
-      fill(style.interactableColor);
-    }
-  }
-
   Float GetValue()
   {
     return map(percent, 0, 1, minmax.x, minmax.y);
@@ -140,7 +129,7 @@ class Slider extends GUIElement
 }
 
 
-class SliderKnob extends GUIKnob
+class SliderKnob extends GUIButton
 {
   float w = 10;
   float h;
