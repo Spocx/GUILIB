@@ -65,40 +65,14 @@ class Slider extends GUIElement
   void DrawValue()
   {
     fill(style.textColor);
-    switch(textSide)
-    {
-    case UP:
-      textAlign(CENTER, BOTTOM);
-      tpaddx = w*0.5;
-      tpaddy = -5;
-      break;
-
-    case DOWN:
-      textAlign(CENTER, TOP);
-      tpaddx = w*0.5;
-      tpaddy = h+5;
-      break;
-
-    case RIGHT:
-      tpaddx = w+5;
-      tpaddy = h/2;
-      textAlign(LEFT, CENTER);
-      break;
-
-    case LEFT:
-      tpaddx = -5;
-      tpaddy = h/2;
-      textAlign(RIGHT, CENTER);
-      break;
-    }
-    
+    textAlign(LEFT,BOTTOM);
     if(showAsInt)
     {
-      text(round(GetValue()), pos.x+tpaddx, pos.y+tpaddy);
+      text(ID + ": \n"+round(GetValue()), pos.x,pos.y-5);
     }
     else
     {
-      text(nf(GetValue(), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
+      text(ID + ": \n"+nf(GetValue(), 0, 2), pos.x,pos.y-5);
     }
   }
 

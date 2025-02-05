@@ -47,50 +47,13 @@ class MinMaxSlider extends Slider
   void DrawValue()
   {
     fill(style.textColor);
-    if (textSide == DIRECTION.UP || textSide == DIRECTION.DOWN)
+    textAlign(LEFT,BOTTOM);
+    if (showAsInt)
     {
-      textAlign(CENTER, BOTTOM);
-      tpaddx = w*0.5;
-      tpaddy = -5;
-      if (showAsInt)
-      {
-        text(round(map(percent, 0, 1, minmax.x, minmax.y)), pos.x+tpaddx, pos.y+tpaddy);
-      } else
-      {
-        text(nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
-      }
-      textAlign(CENTER, TOP);
-      tpaddx2 = w*0.5;
-      tpaddy2 = h+5;
-      if (showAsInt)
-      {
-        text(round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x+tpaddx2, pos.y+tpaddy2);
-      } else
-      {
-        text(nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx2, pos.y+tpaddy2);
-      }
+      text(ID+": \n"+ round(map(percent, 0, 1, minmax.x, minmax.y)) + " | " + round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x,pos.y-5);
     } else
     {
-      textAlign(RIGHT, CENTER);
-      tpaddx = -5;
-      tpaddy = h/2;
-      if (showAsInt)
-      {
-        text(round(map(percent, 0, 1, minmax.x, minmax.y)), pos.x+tpaddx, pos.y+tpaddy);
-      } else
-      {
-        text(nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx, pos.y+tpaddy);
-      }
-      textAlign(LEFT, CENTER);
-      tpaddx2 = w+5;
-      tpaddy2 = h/2;
-      if (showAsInt)
-      {
-        text(round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x+tpaddx2, pos.y+tpaddy2);
-      } else
-      {
-        text(nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+tpaddx2, pos.y+tpaddy2);
-      }
+      text(ID+": \n"+ nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2) + " | " + nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x,pos.y-5);
     }
   }
 

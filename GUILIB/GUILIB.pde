@@ -13,11 +13,12 @@ void setup()
   style = new StyleSetting();
   gui = new GUI();
   GUIElement s = gui.AddElement(new Slider(new PVector(100, 100), 200, 20, new PVector(0, width), 0.5), "slider1"); 
-  GUIElement s2 = gui.AddElement(new Slider(new PVector(100, 140), 200, 20, new PVector(0, height), 0.5), "slider2"); 
-  GUIElement s3 = gui.AddElement(new MinMaxSlider(new PVector(100, 180), 200, 20, new PVector(0, 100), 0.5, 0.7), "slider3");
-  GUIElement p = gui.AddElement(new PlotPoint(new PVector(100, 220), 50, 50, new PVector(0, 100), new PVector(0, 100), 0.5, 0.5), "plotpoint1");
-  GUIElement p2 = gui.AddElement(new PlotPoint(new PVector(100, 310), 200, 200, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint2");
-  GUIElement b = gui.AddElement(new Button(new PVector(400,100),150,40,"print debug"),"button 1");
+  GUIElement s2 = gui.AddElement(new Slider(new PVector(100, 160), 200, 20, new PVector(0, height), 0.5), "slider2"); 
+  GUIElement s3 = gui.AddElement(new MinMaxSlider(new PVector(100, 220), 200, 20, new PVector(0, 100), 0.5, 0.7), "slider3");
+  GUIElement p = gui.AddElement(new PlotPoint(new PVector(100, 280), 50, 50, new PVector(0, 100), new PVector(0, 100), 0.5, 0.5), "plotpoint1");
+  GUIElement p2 = gui.AddElement(new PlotPoint(new PVector(100, 410), 200, 200, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint2");
+  GUIElement b = gui.AddElement(new Button(new PVector(400,100),150,40,"print debug"),"button1");
+  GUIElement t = gui.AddElement(new Toggle(new PVector(400,200),40,20),"toggle1");
 
   GUIElementGroup g = gui.CreateElementGroup("group");
 

@@ -21,6 +21,6 @@ class StyleSetting
     PFont font = loadFont("customFont.vlw");
     textFont(font, 48);
     noStroke();
-    textSize(20);
+    textSize(15);
   }
 }
