@@ -67,11 +67,11 @@ class Slider extends GUIElement
     SetTextOffset();
     if(showAsInt)
     {
-      text(ID + ": \n"+round(GetValue()), pos.x+textOffset.x,pos.y+textOffset.y);
+      text(ID + ":\n"+round(GetValue()), pos.x+textOffset.x,pos.y+textOffset.y);
     }
     else
     {
-      text(ID + ": \n"+nf(GetValue(), 0, 2), pos.x+textOffset.x,pos.y+textOffset.y);
+      text(ID + ":\n"+nf(GetValue(), 0, 2), pos.x+textOffset.x,pos.y+textOffset.y);
     }
   }
 

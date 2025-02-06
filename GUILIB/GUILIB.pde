@@ -19,6 +19,8 @@ void setup()
   GUIElement p2 = gui.AddElement(new PlotPoint(new PVector(100, 410), 200, 200, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint2");
   GUIElement b = gui.AddElement(new Button(new PVector(400,100),150,40,"print debug"),"button1");
   GUIElement t = gui.AddElement(new Toggle(new PVector(400,200),40,20),"toggle1");
+  GUIElement sel = gui.AddElement(new Selector(new PVector(400,240),150,20,new String[]{"apple","banana","kiwi"}),"selector1");
+
 
   GUIElementGroup g = gui.CreateElementGroup("group");
 

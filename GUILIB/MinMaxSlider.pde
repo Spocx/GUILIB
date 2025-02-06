@@ -50,10 +50,10 @@ class MinMaxSlider extends Slider
     SetTextOffset();
     if (showAsInt)
     {
-      text(ID+": \n"+ round(map(percent, 0, 1, minmax.x, minmax.y)) + " | " + round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x+textOffset.x,pos.y+textOffset.y);
+      text(ID+":\n"+ round(map(percent, 0, 1, minmax.x, minmax.y)) + " | " + round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x+textOffset.x,pos.y+textOffset.y);
     } else
     {
-      text(ID+": \n"+ nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2) + " | " + nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+textOffset.x,pos.y+textOffset.y);
+      text(ID+":\n"+ nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2) + " | " + nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+textOffset.x,pos.y+textOffset.y);
     }
   }
 

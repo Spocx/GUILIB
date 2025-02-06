@@ -3,7 +3,7 @@ class GUIElement
   PVector pos;
   float w, h;
   String ID;
-  TEXTSIDE textSide = TEXTSIDE.BOTTOM;
+  TEXTSIDE textSide = TEXTSIDE.LEFT;
   PVector textOffset = new PVector(0, 0);
   GUIElement(PVector _pos, float _w, float _h)
   {
@@ -12,16 +12,11 @@ class GUIElement
     h = _h;
   }
 
-  void Update() {
-  };
-  void Show() {
-  };
-  Object GetValue() {
-    return 0;
-  };
-  void PrintDebug() {
-  };
-
+  void Update() {};
+  void Show() {};
+  Object GetValue() {return 0; };
+  void PrintDebug() {};
+  
   void SetTextSide(TEXTSIDE side)
   {
     textSide = side;
