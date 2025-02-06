@@ -2,6 +2,10 @@ enum DIRECTION {
   UP, RIGHT, DOWN, LEFT
 };
 
+enum TEXTSIDE {
+  TOP,BOTTOM,LEFT,RIGHT 
+}
+
 class StyleSetting
 {
   //UI element colors
@@ -21,6 +25,6 @@ class StyleSetting
     PFont font = loadFont("customFont.vlw");
     textFont(font, 48);
     noStroke();
-    textSize(15);
+    textSize(10);
   }
 }

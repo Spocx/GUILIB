@@ -4,7 +4,6 @@ class Slider extends GUIElement
   float percent = 0.0;
   float tpaddx = 0, tpaddy = 0;
   SliderKnob knob;
-  DIRECTION textSide = DIRECTION.LEFT;
   Boolean showAsInt = false;
 
   Slider(PVector _pos, float _w, float _h, PVector _minmax, float _startpercent)
@@ -65,14 +64,14 @@ class Slider extends GUIElement
   void DrawValue()
   {
     fill(style.textColor);
-    textAlign(LEFT,BOTTOM);
+    SetTextOffset();
     if(showAsInt)
     {
-      text(ID + ": \n"+round(GetValue()), pos.x,pos.y-5);
+      text(ID + ": \n"+round(GetValue()), pos.x+textOffset.x,pos.y+textOffset.y);
     }
     else
     {
-      text(ID + ": \n"+nf(GetValue(), 0, 2), pos.x,pos.y-5);
+      text(ID + ": \n"+nf(GetValue(), 0, 2), pos.x+textOffset.x,pos.y+textOffset.y);
     }
   }
 
@@ -85,11 +84,6 @@ class Slider extends GUIElement
   float GetPercent()
   {
     return percent;
-  }
-
-  void SetTextSide(DIRECTION dir)
-  {
-    textSide = dir;
   }
 
   void PrintDebug()

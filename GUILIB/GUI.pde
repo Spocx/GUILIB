@@ -18,6 +18,14 @@ class GUI
     }
   }
 
+  void SetGlobalTextSide(TEXTSIDE side)
+  {
+     for(GUIElement e : elements)
+     {
+        e.SetTextSide(side); 
+     }
+  }
+
   GUIElement AddElement(GUIElement element, String identifier)
   {
     elements.add(element);
@@ -114,6 +122,49 @@ class GUIElementGroup extends ArrayList<GUIElement>
   PVector GetVec   (int elementIndex) {
     return (PVector)get(elementIndex).GetValue();
   }
+  
+  float   GetFloat (String elementID) {
+    return (float)  GetElementByName(elementID).GetValue();
+  }
+  int     GetInt   (String elementID) {
+    return int((float)GetElementByName(elementID).GetValue());
+  }
+  boolean GetBool  (String elementID) {
+    return (boolean)GetElementByName(elementID).GetValue();
+  }
+  String  GetString(String elementID) {
+    return (String) GetElementByName(elementID).GetValue();
+  }
+  byte    GetByte  (String elementID) {
+    return (byte)   GetElementByName(elementID).GetValue();
+  }
+  char    GetChar  (String elementID) {
+    return (char)   GetElementByName(elementID).GetValue();
+  }
+  color   GetColor (String elementID) {
+    return (color)  GetElementByName(elementID).GetValue();
+  }
+  double  GetDouble(String elementID) {
+    return (double) GetElementByName(elementID).GetValue();
+  }
+  long    GetLong  (String elementID) {
+    return (long)   GetElementByName(elementID).GetValue();
+  }
+  PVector GetVec   (String elementID) {
+    return (PVector)GetElementByName(elementID).GetValue();
+  }
+  
+  GUIElement GetElementByName(String elementID)
+  {
+     for(GUIElement e : this)
+     {
+        if (e.ID == elementID)
+        {
+           return e; 
+        }
+     }
+     return null; 
+  }
 
   void AddElement(GUIElement element)
   {
@@ -180,6 +231,7 @@ class GUIButton
   boolean mouseDown = false;
   boolean pressed = false;
   boolean released = false;
+  boolean pressreleased = false;
 
   GUIButton(PVector _pos)
   {
@@ -233,9 +285,14 @@ class GUIButton
     {
       if (held)
       {
+        if(hover)
+        {
+         pressreleased = true; 
+        }
         released = true;
       } else
       {
+        pressreleased = false;
         released = false;
       }
       held = false;

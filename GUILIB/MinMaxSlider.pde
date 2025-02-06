@@ -47,13 +47,13 @@ class MinMaxSlider extends Slider
   void DrawValue()
   {
     fill(style.textColor);
-    textAlign(LEFT,BOTTOM);
+    SetTextOffset();
     if (showAsInt)
     {
-      text(ID+": \n"+ round(map(percent, 0, 1, minmax.x, minmax.y)) + " | " + round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x,pos.y-5);
+      text(ID+": \n"+ round(map(percent, 0, 1, minmax.x, minmax.y)) + " | " + round(map(percent2, 0, 1, minmax.x, minmax.y)), pos.x+textOffset.x,pos.y+textOffset.y);
     } else
     {
-      text(ID+": \n"+ nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2) + " | " + nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x,pos.y-5);
+      text(ID+": \n"+ nf(map(percent, 0, 1, minmax.x, minmax.y), 0, 2) + " | " + nf(map(percent2, 0, 1, minmax.x, minmax.y), 0, 2), pos.x+textOffset.x,pos.y+textOffset.y);
     }
   }
 

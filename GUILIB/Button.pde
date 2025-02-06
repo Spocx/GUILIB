@@ -27,7 +27,7 @@ class Button extends GUIElement
 
   Boolean GetValue()
   {
-    return button.released;
+    return button.pressreleased;
   }
 
   void PrintDebug()

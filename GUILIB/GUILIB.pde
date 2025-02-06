@@ -7,7 +7,7 @@ boolean keyDown = false;
 
 void setup()
 {
-  size(800, 800);
+  size(1280, 720);
   colorMode(HSB);
   bgc = color(100, 30, 10);
   style = new StyleSetting();
@@ -40,8 +40,25 @@ void draw()
   
   GUIElementGroup g = gui.GetElementGroup("group");
   
-  if(g.GetBool(3))
+  if(g.GetBool("button1"))
   {
+    int r = (int)random(4);
+    switch(r)
+    {
+     case 0:
+     gui.SetGlobalTextSide(TEXTSIDE.TOP);
+     break;
+     case 1:
+     gui.SetGlobalTextSide(TEXTSIDE.RIGHT);
+     break;
+     case 2:
+     gui.SetGlobalTextSide(TEXTSIDE.BOTTOM);
+     break;
+     case 3:
+     gui.SetGlobalTextSide(TEXTSIDE.LEFT);
+     break;
+    }
+    
     gui.PrintDebug();
   }
 }
