@@ -42,23 +42,6 @@ void draw()
   
   if(g.GetBool("button1"))
   {
-    int r = (int)random(4);
-    switch(r)
-    {
-     case 0:
-     gui.SetGlobalTextSide(TEXTSIDE.TOP);
-     break;
-     case 1:
-     gui.SetGlobalTextSide(TEXTSIDE.RIGHT);
-     break;
-     case 2:
-     gui.SetGlobalTextSide(TEXTSIDE.BOTTOM);
-     break;
-     case 3:
-     gui.SetGlobalTextSide(TEXTSIDE.LEFT);
-     break;
-    }
-    
     gui.PrintDebug();
   }
 }
