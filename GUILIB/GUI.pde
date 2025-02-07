@@ -2,8 +2,15 @@ class GUI
 {
   ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
   GUIElementGroups elementGroups = new GUIElementGroups();
+
+  GUI()
+  {
+    style = new StyleSetting();
+  }
+
   void Update()
   {
+    UpdateGlobals();
     for (int i = 0; i < elements.size(); i++)
     {
       elements.get(i).Update();
@@ -20,10 +27,10 @@ class GUI
 
   void SetGlobalTextSide(TEXTSIDE side)
   {
-     for(GUIElement e : elements)
-     {
-        e.SetTextSide(side); 
-     }
+    for (GUIElement e : elements)
+    {
+      e.SetTextSide(side);
+    }
   }
 
   GUIElement AddElement(GUIElement element, String identifier)
@@ -122,7 +129,7 @@ class GUIElementGroup extends ArrayList<GUIElement>
   PVector GetVec   (int elementIndex) {
     return (PVector)get(elementIndex).GetValue();
   }
-  
+
   float   GetFloat (String elementID) {
     return (float)  GetElementByName(elementID).GetValue();
   }
@@ -153,17 +160,17 @@ class GUIElementGroup extends ArrayList<GUIElement>
   PVector GetVec   (String elementID) {
     return (PVector)GetElementByName(elementID).GetValue();
   }
-  
+
   GUIElement GetElementByName(String elementID)
   {
-     for(GUIElement e : this)
-     {
-        if (e.ID == elementID)
-        {
-           return e; 
-        }
-     }
-     return null; 
+    for (GUIElement e : this)
+    {
+      if (e.ID.equals(elementID))
+      {
+        return e;
+      }
+    }
+    return null;
   }
 
   void AddElement(GUIElement element)
@@ -285,9 +292,9 @@ class GUIButton
     {
       if (held)
       {
-        if(hover)
+        if (hover)
         {
-         pressreleased = true; 
+          pressreleased = true;
         }
         released = true;
       } else

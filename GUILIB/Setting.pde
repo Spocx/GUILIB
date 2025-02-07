@@ -1,11 +1,3 @@
-enum DIRECTION {
-  UP, RIGHT, DOWN, LEFT
-};
-
-enum TEXTSIDE {
-  TOP,BOTTOM,LEFT,RIGHT 
-}
-
 class StyleSetting
 {
   //UI element colors
@@ -22,7 +14,7 @@ class StyleSetting
 
   StyleSetting()
   {
-    PFont font = loadFont("customFont.vlw");
+    PFont font = createFont("Consolas bold",48);
     textFont(font, 48);
     noStroke();
     textSize(10);

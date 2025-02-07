@@ -1,7 +1,5 @@
 color bgc;
-PVector mousepos = new PVector(0, 0);
 GUI gui;
-StyleSetting style;
 //temp
 boolean keyDown = false;
 
@@ -10,7 +8,7 @@ void setup()
   size(1280, 720);
   colorMode(HSB);
   bgc = color(100, 30, 10);
-  style = new StyleSetting();
+  
   gui = new GUI();
   GUIElement s = gui.AddElement(new Slider(new PVector(100, 100), 200, 20, new PVector(0, width), 0.5), "slider1"); 
   GUIElement s2 = gui.AddElement(new Slider(new PVector(100, 160), 200, 20, new PVector(0, height), 0.5), "slider2"); 
@@ -35,7 +33,7 @@ void setup()
 void draw()
 {
   background(bgc);
-  UpdateGlobals();
+  
   
   gui.Update();
   gui.Show();
