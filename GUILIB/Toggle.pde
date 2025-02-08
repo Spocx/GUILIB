@@ -5,6 +5,7 @@ class Toggle extends GUIElement
   Toggle(PVector _pos, float _w, float _h)
   {
     super(_pos, _w, _h);
+    textLines = 1;
     knob = new ToggleKnob(new PVector(pos.x, pos.y), _h);
   }
 
@@ -29,6 +30,17 @@ class Toggle extends GUIElement
     {
       knob.pos.x = lerp(knob.pos.x, pos.x, 0.4);
     }
+  }
+  
+  void SetPosition(float x, float y)
+  {
+     float xoff = x - pos.x;
+     float yoff = y - pos.y;
+     
+     pos.x += xoff;
+     pos.y += yoff;
+     knob.pos.x += xoff;
+     knob.pos.y += yoff;
   }
 
   void Show()

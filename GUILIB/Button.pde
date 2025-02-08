@@ -5,6 +5,7 @@ class Button extends GUIElement
   Button(PVector _pos, float _w, float _h, String _t)
   {
     super(_pos, _w, _h);
+    textLines = 0;
     text = _t;
     h = _h;
     w = _w;

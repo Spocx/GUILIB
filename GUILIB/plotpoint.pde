@@ -21,6 +21,17 @@ class PlotPoint extends GUIElement
     DrawValue();
   }
 
+  void SetPosition(float x, float y)
+  {
+     float xoff = x - pos.x;
+     float yoff = y - pos.y;
+     
+     pos.x += xoff;
+     pos.y += yoff;
+     knob.pos.x += xoff;
+     knob.pos.y += yoff;
+  }
+
   void DrawValue()
   {
     fill(style.textColor);

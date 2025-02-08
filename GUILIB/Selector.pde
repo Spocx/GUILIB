@@ -7,6 +7,7 @@ class Selector extends GUIElement
   Selector(PVector _pos, float _w, float _h, String[] _options)
   {
     super(_pos, _w, _h);
+    textLines = 0;
     options = _options;
     leftButton = new SelectorButton(new PVector(_pos.x,_pos.y),_h,_h);
     rightButton = new SelectorButton(new PVector(_pos.x+_w-_h,_pos.y),_h,_h);
@@ -26,6 +27,19 @@ class Selector extends GUIElement
        selection++; 
     }
     selection = constrain(selection,0,options.length-1);
+  }
+
+  void SetPosition(float x, float y)
+  {
+     float xoff = x - pos.x;
+     float yoff = y - pos.y;
+     
+     pos.x += xoff;
+     pos.y += yoff;
+     leftButton.pos.x += xoff;
+     leftButton.pos.y += yoff;
+     rightButton.pos.x += xoff;
+     rightButton.pos.y += yoff;
   }
 
   void Show()

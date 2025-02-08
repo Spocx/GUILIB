@@ -3,7 +3,9 @@ class GUIElement
   PVector pos;
   float w, h;
   String ID;
-  TEXTSIDE textSide = TEXTSIDE.LEFT;
+  boolean autoPosition = true;
+  TEXTSIDE textSide = TEXTSIDE.TOP;
+  int textLines = 2;
   PVector textOffset = new PVector(0, 0);
   GUIElement(PVector _pos, float _w, float _h)
   {
@@ -12,11 +14,25 @@ class GUIElement
     h = _h;
   }
 
-  void Update() {};
-  void Show() {};
-  Object GetValue() {return 0; };
-  void PrintDebug() {};
-  
+  void Update() {
+  };
+  void Show() {
+  };
+  Object GetValue() {
+    return 0;
+  };
+  void PrintDebug() {
+  };
+  void SetPosition(float x, float y)
+  {
+    float xoff = x - pos.x;
+    float yoff = y - pos.y;
+
+    pos.x += xoff;
+    pos.y += yoff;
+  };
+
+
   void SetTextSide(TEXTSIDE side)
   {
     textSide = side;

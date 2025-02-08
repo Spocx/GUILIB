@@ -2,6 +2,9 @@ class GUI
 {
   ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
   GUIElementGroups elementGroups = new GUIElementGroups();
+  ArrayList<GUIWindow> windows = new ArrayList<GUIWindow>();
+
+  String activeWindow = null;
 
   GUI()
   {
@@ -11,17 +14,34 @@ class GUI
   void Update()
   {
     UpdateGlobals();
-    for (int i = 0; i < elements.size(); i++)
+    for (GUIElement e : elements)
     {
-      elements.get(i).Update();
+      e.Update();
+    }
+
+    for (GUIWindow w : windows)
+    {
+      w.Update();
     }
   }
 
   void Show()
   {
-    for (int i = 0; i < elements.size(); i++)
+    if (style.doElementStroke)
     {
-      elements.get(i).Show();
+      strokeWeight(style.elementStrokeWeight);
+      stroke(style.elementStrokeColor);
+    } else
+    {
+      noStroke();
+    }
+    for (GUIElement e : elements)
+    {
+      e.Show();
+    }
+    for (GUIWindow w : windows)
+    {
+      w.Show();
     }
   }
 
@@ -47,14 +67,20 @@ class GUI
     return g;
   }
 
+  GUIWindow CreateWindow(GUIWindow window, String ID)
+  {
+    windows.add(window);
+    window.identifier = ID;
+    return window;
+  }
 
   GUIElementGroup GetElementGroup(String identifier)
   {
-    for (int i = 0; i < elementGroups.size(); i++)
+    for (GUIElementGroup e : elementGroups)
     {
-      if (elementGroups.get(i).ID == identifier)
+      if (e.ID.equals(identifier))
       {
-        return elementGroups.get(i);
+        return e;
       }
     }
     return null;
@@ -62,11 +88,23 @@ class GUI
 
   GUIElement GetElement(String identifier)
   {
-    for (int i = 0; i < elements.size(); i++)
+    for (GUIElement e : elements)
     {
-      if (elements.get(i).ID == identifier)
+      if (e.ID.equals(identifier))
       {
-        return elements.get(i);
+        return e;
+      }
+    }
+    return null;
+  }
+  
+  GUIWindow GetWindow(String identifier)
+  {
+    for (GUIWindow w : windows)
+    {
+      if (w.identifier.equals(identifier))
+      {
+        return w;
       }
     }
     return null;
@@ -81,10 +119,118 @@ class GUI
       elements.get(i).PrintDebug();
     }
 
+    println("[==========================Windows=====================]");
+    for (int i = 0; i < windows.size(); i++)
+    {
+      windows.get(i).PrintDebug();
+    }
+
     println("[==========================Element groups=====================]");
     for (int i = 0; i < elementGroups.size(); i++)
     {
       elementGroups.get(i).PrintDebug();
+    }
+  }
+}
+
+class GUIWindow
+{
+  PVector pos;
+  float w, h;
+  String identifier;
+
+  ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
+
+  GUIWindow(PVector _pos, float _w, float _h)
+  {
+    pos = _pos;
+    w = _w;
+    h = _h;
+  }
+
+  GUIElement AddElement(GUIElement element, String identifier)
+  {
+    elements.add(element);
+    element.ID = identifier;
+    return element;
+  }
+
+  GUIElement GetElement(String identifier)
+  {
+    for (int i = 0; i < elements.size(); i++)
+    {
+      if (elements.get(i).ID == identifier)
+      {
+        return elements.get(i);
+      }
+    }
+    return null;
+  }
+
+  void Update()
+  {
+    float cx = style.windowSpacingMarginX;
+    float cy = style.windowSpacingMarginY;
+    float biggestx = 0;
+    for (GUIElement e : elements)
+    {
+      if (e.autoPosition)
+      {
+        if (cy + e.h + e.textLines*10 > h-style.windowSpacingMarginY*2)
+        {
+          cy = style.windowSpacingMarginY;
+          cx += biggestx+style.windowElementMarginX;
+          biggestx = 0;
+        }
+        
+        if (e.w > biggestx) {
+          biggestx = e.w;
+        }
+        
+        e.SetPosition(pos.x+cx,pos.y+cy+ e.textLines*10);
+        cy += e.h + style.windowElementMarginY+ e.textLines*10;
+      }
+      e.Update();
+    }
+  }
+
+  void Show()
+  {
+    if (style.doWindowStroke)
+    {
+      strokeWeight(style.windowStrokeWeight);
+      stroke(style.windowStrokeColor);
+    } else
+    {
+      noStroke();
+    }
+    fill(style.windowColor);
+    rect(pos.x, pos.y, w, h, style.windowCornerRounding);
+
+    if (style.doElementStroke)
+    {
+      strokeWeight(style.elementStrokeWeight);
+      stroke(style.elementStrokeColor);
+    } else
+    {
+      noStroke();
+    }
+    for (GUIElement e : elements)
+    {
+      e.Show();
+    }
+  }
+
+  void PrintDebug()
+  {
+    println("------------WindowName: "+ identifier + "----------------");
+    println("pos: " + pos.x + "-" + pos.y);
+    println("size: " + w + "-" + h);
+    println();
+    println("---------Elements-----------");
+    for (int i = 0; i < elements.size(); i++)
+    {
+      elements.get(i).PrintDebug();
     }
   }
 }

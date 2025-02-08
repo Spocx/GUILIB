@@ -30,6 +30,19 @@ class MinMaxSlider extends Slider
     }
   }
 
+  void SetPosition(float x, float y)
+  {
+     float xoff = x - pos.x;
+     float yoff = y - pos.y;
+     
+     pos.x += xoff;
+     pos.y += yoff;
+     knob.pos.x += xoff;
+     knob.pos.y += yoff;
+     knob2.pos.x += xoff;
+     knob2.pos.y += yoff;
+  }
+
   void DrawFG()
   {
     fill(style.elementColor);
