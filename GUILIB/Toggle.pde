@@ -68,7 +68,8 @@ class Toggle extends GUIElement
     rect(knob.pos.x, knob.pos.y, knob.w, knob.h, 10);
     fill(style.textColor);
     SetTextOffset();
-    text(ID, pos.x+textOffset.x, pos.y+textOffset.y);
+    valueText = ID;
+    text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
   }
 
   void PrintDebug()

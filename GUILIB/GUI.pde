@@ -97,7 +97,7 @@ class GUI
     }
     return null;
   }
-  
+
   GUIWindow GetWindow(String identifier)
   {
     for (GUIWindow w : windows)
@@ -176,19 +176,24 @@ class GUIWindow
     {
       if (e.autoPosition)
       {
-        if (cy + e.h + e.textLines*10 > h-style.windowSpacingMarginY*2)
+        if (cy + e.h + e.GetTextHeight() > h-style.windowSpacingMarginY*2)
         {
           cy = style.windowSpacingMarginY;
           cx += biggestx+style.windowElementMarginX;
           biggestx = 0;
         }
-        
+
+
         if (e.w > biggestx) {
           biggestx = e.w;
         }
-        
-        e.SetPosition(pos.x+cx,pos.y+cy+ e.textLines*10);
-        cy += e.h + style.windowElementMarginY+ e.textLines*10;
+
+        if (e.GetTextWidth() > biggestx) {
+          biggestx = e.GetTextWidth();
+        }
+
+        e.SetPosition(pos.x+cx, pos.y+cy+ e.GetTextHeight());
+        cy += e.h + style.windowElementMarginY+ e.GetTextHeight();
       }
       e.Update();
     }
@@ -368,6 +373,16 @@ class GUIElementGroup extends ArrayList<GUIElement>
   }
   PVector GetVec   (String elementID, String valueID) {
     return (PVector)GetElementByName(elementID).GetValue(valueID);
+  }
+  
+  void SetValue (int elementIndex, Object v)
+  {
+      get(elementIndex).SetValue(v);
+  }
+  
+  void SetValue (String elementID, Object v)
+  {
+     GetElementByName(elementID).SetValue(v); 
   }
 
   GUIElement GetElementByName(String elementID)

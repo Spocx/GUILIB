@@ -36,7 +36,8 @@ class PlotPoint extends GUIElement
   {
     fill(style.textColor);
     SetTextOffset();
-    text(ID + ":\n" + "(" + nf(GetValue().x, 0, 2)+", "+nf(GetValue().y, 0, 2)+")", pos.x+textOffset.x, pos.y+textOffset.y);
+    valueText = ID + ":\n" + "(" + nf(GetValue().x, 0, 2)+", "+nf(GetValue().y, 0, 2)+")";
+    text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
   }
 
   void DrawKnob()

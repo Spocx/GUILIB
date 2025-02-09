@@ -12,6 +12,7 @@ subwindows
 ==================GUIELEMENT===========================
 try to make it so position for elements does not have to be specified, probably just need to overload constructors.
 auto spacing current only works with text TOP alignment
+calculate text size area using text width and height functions
 
 ====================SAVE AND LOAD====================
 add json print, can help with just printing the gui to console, but also saving and loading the GUI between sessions

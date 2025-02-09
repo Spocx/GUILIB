@@ -10,6 +10,7 @@ class StyleSetting
 
   //UI text color
   color textColor              = color(120, 10, 200);
+  float fontSize               = 10;
 
   //UI interactables color (things you can press/drag)
   color interactableColor      = color(120, 10, 200);
@@ -32,6 +33,6 @@ class StyleSetting
     PFont font = createFont("Consolas bold",48);
     textFont(font, 48);
     noStroke();
-    textSize(10);
+    textSize(fontSize);
   }
 }
