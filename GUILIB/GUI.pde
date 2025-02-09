@@ -276,6 +276,38 @@ class GUIElementGroup extends ArrayList<GUIElement>
     return (PVector)get(elementIndex).GetValue();
   }
 
+  float   GetFloat (int elementIndex, String valueID) {
+    return (float)  get(elementIndex).GetValue(valueID);
+  }
+  int     GetInt   (int elementIndex, String valueID) {
+    return int((float)get(elementIndex).GetValue(valueID));
+  }
+  boolean GetBool  (int elementIndex, String valueID) {
+    return (boolean)get(elementIndex).GetValue(valueID);
+  }
+  String  GetString(int elementIndex, String valueID) {
+    return (String) get(elementIndex).GetValue(valueID);
+  }
+  byte    GetByte  (int elementIndex, String valueID) {
+    return (byte)   get(elementIndex).GetValue(valueID);
+  }
+  char    GetChar  (int elementIndex, String valueID) {
+    return (char)   get(elementIndex).GetValue(valueID);
+  }
+  color   GetColor (int elementIndex, String valueID) {
+    return (color)  get(elementIndex).GetValue(valueID);
+  }
+  double  GetDouble(int elementIndex, String valueID) {
+    return (double) get(elementIndex).GetValue(valueID);
+  }
+  long    GetLong  (int elementIndex, String valueID) {
+    return (long)   get(elementIndex).GetValue(valueID);
+  }
+  PVector GetVec   (int elementIndex, String valueID) {
+    return (PVector)get(elementIndex).GetValue(valueID);
+  }
+
+
   float   GetFloat (String elementID) {
     return (float)  GetElementByName(elementID).GetValue();
   }
@@ -305,6 +337,37 @@ class GUIElementGroup extends ArrayList<GUIElement>
   }
   PVector GetVec   (String elementID) {
     return (PVector)GetElementByName(elementID).GetValue();
+  }
+
+  float   GetFloat (String elementID, String valueID) {
+    return (float)  GetElementByName(elementID).GetValue(valueID);
+  }
+  int     GetInt   (String elementID, String valueID) {
+    return int((float)GetElementByName(elementID).GetValue(valueID));
+  }
+  boolean GetBool  (String elementID, String valueID) {
+    return (boolean)GetElementByName(elementID).GetValue(valueID);
+  }
+  String  GetString(String elementID, String valueID) {
+    return (String) GetElementByName(elementID).GetValue(valueID);
+  }
+  byte    GetByte  (String elementID, String valueID) {
+    return (byte)   GetElementByName(elementID).GetValue(valueID);
+  }
+  char    GetChar  (String elementID, String valueID) {
+    return (char)   GetElementByName(elementID).GetValue(valueID);
+  }
+  color   GetColor (String elementID, String valueID) {
+    return (color)  GetElementByName(elementID).GetValue(valueID);
+  }
+  double  GetDouble(String elementID, String valueID) {
+    return (double) GetElementByName(elementID).GetValue(valueID);
+  }
+  long    GetLong  (String elementID, String valueID) {
+    return (long)   GetElementByName(elementID).GetValue(valueID);
+  }
+  PVector GetVec   (String elementID, String valueID) {
+    return (PVector)GetElementByName(elementID).GetValue(valueID);
   }
 
   GUIElement GetElementByName(String elementID)

@@ -101,6 +101,24 @@ class PlotPoint extends GUIElement
   {
     return new PVector(map(knob.pos.x, pos.x+borderMargin, pos.x+w, mmx.x, mmx.y), map(knob.pos.y, pos.y, pos.y+h-borderMargin, mmy.y, mmy.x));
   }
+  
+  Object GetValue(String ID)
+  {
+    switch(ID)
+    {
+      case "value":
+      return new PVector(map(knob.pos.x, pos.x+borderMargin, pos.x+w, mmx.x, mmx.y), map(knob.pos.y, pos.y, pos.y+h-borderMargin, mmy.y, mmy.x));
+      
+      case "x":
+      return map(knob.pos.x, pos.x+borderMargin, pos.x+w, mmx.x, mmx.y);
+      
+      case "y":
+      return map(knob.pos.y, pos.y, pos.y+h-borderMargin, mmy.y, mmy.x);
+      
+      default:
+      return new PVector(map(knob.pos.x, pos.x+borderMargin, pos.x+w, mmx.x, mmx.y), map(knob.pos.y, pos.y, pos.y+h-borderMargin, mmy.y, mmy.x));
+    }
+  }
 }
 
 class PlotPointKnob extends GUIButton

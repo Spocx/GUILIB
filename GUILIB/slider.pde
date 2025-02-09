@@ -91,7 +91,21 @@ class Slider extends GUIElement
     return map(percent, 0, 1, minmax.x, minmax.y);
   }
 
-
+  Object GetValue(String ID)
+  {
+    switch(ID)
+    {
+      case "value":
+      return map(percent, 0, 1, minmax.x, minmax.y);
+      
+      case "percent":
+      return percent;
+      
+      default:
+      return map(percent, 0, 1, minmax.x, minmax.y);
+    }
+  }
+  
   float GetPercent()
   {
     return percent;

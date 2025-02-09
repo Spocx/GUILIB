@@ -21,6 +21,9 @@ class GUIElement
   Object GetValue() {
     return 0;
   };
+  Object GetValue(String ID) {
+    return 0;
+  };
   void PrintDebug() {
   };
   void SetPosition(float x, float y)

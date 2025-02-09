@@ -25,7 +25,7 @@ void setup()
   w.AddElement(new PlotPoint(new PVector(100, 410), 200, 200, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint20");
   w.AddElement(new Slider(new PVector(100, 100), 200, 20, new PVector(0, width), 0.5), "slider11"); 
   w.AddElement(new Slider(new PVector(100, 100), 200, 20, new PVector(0, width), 0.5), "slider12"); 
-  w.AddElement(new Button(new PVector(400, 100), 150, 40, "print debug"), "button2");
+  GUIElement b2 = w.AddElement(new Button(new PVector(400, 100), 150, 40, "button 2"), "button2");
   w.AddElement(new MinMaxSlider(new PVector(100, 220), 200, 20, new PVector(0, 100), 0.5, 0.7), "slider34");
   w.AddElement(new Toggle(new PVector(400, 200), 40, 20), "toggle2");
   w.AddElement(new Toggle(new PVector(400, 200), 40, 20), "toggle3");
@@ -36,9 +36,11 @@ void setup()
 
   g.AddElement(s);
   g.AddElement(s2);
+  g.AddElement(s3);
   g.AddElement(p2);
   g.AddElement(b);
   g.AddElement(s10);
+  g.AddElement(b2);
 }
 
 
@@ -47,7 +49,7 @@ void draw()
 {
   background(bgc);
 
-
+  
   gui.Update();
   gui.Show();
   
@@ -58,7 +60,6 @@ void draw()
     w.pos.y = mouseY;
   }
   GUIElementGroup g = gui.GetElementGroup("group");
-
   if (g.GetBool("button1"))
   {
     gui.PrintDebug();

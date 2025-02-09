@@ -75,6 +75,24 @@ class MinMaxSlider extends Slider
     return map(random(percent, percent2), 0, 1, minmax.x, minmax.y);
   }
 
+  Object GetValue(String ID)
+  {
+    switch(ID)
+    {
+       case "value":
+       return map(random(percent, percent2), 0, 1, minmax.x, minmax.y);
+       
+       case "min":
+       return map(percent,0,1,minmax.x,minmax.y);
+       
+       case "max":
+       return map(percent2,0,1,minmax.x,minmax.y);
+       
+       default:
+       return map(random(percent, percent2), 0, 1, minmax.x, minmax.y);
+    }
+  }
+
   float GetPercent()
   {
     return random(percent, percent2);

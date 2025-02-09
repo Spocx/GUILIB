@@ -14,6 +14,18 @@ class Toggle extends GUIElement
     return toggled;
   }
 
+  Object GetValue(String ID)
+  {
+    switch(ID)
+    {
+    case "value":
+      return toggled;
+
+    default:
+      return toggled;
+    }
+  }
+
   void Update()
   {
     knob.Update();
@@ -31,16 +43,16 @@ class Toggle extends GUIElement
       knob.pos.x = lerp(knob.pos.x, pos.x, 0.4);
     }
   }
-  
+
   void SetPosition(float x, float y)
   {
-     float xoff = x - pos.x;
-     float yoff = y - pos.y;
-     
-     pos.x += xoff;
-     pos.y += yoff;
-     knob.pos.x += xoff;
-     knob.pos.y += yoff;
+    float xoff = x - pos.x;
+    float yoff = y - pos.y;
+
+    pos.x += xoff;
+    pos.y += yoff;
+    knob.pos.x += xoff;
+    knob.pos.y += yoff;
   }
 
   void Show()

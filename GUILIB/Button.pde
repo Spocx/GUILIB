@@ -20,7 +20,7 @@ class Button extends GUIElement
   void Show()
   {
     button.SetButtonFill();
-    rect(pos.x, pos.y, w, h,5);
+    rect(pos.x, pos.y, w, h, 5);
     fill(style.elementBGColor);
     textAlign(CENTER, CENTER);
     text(text, pos.x+w/2, pos.y+h/2);
@@ -29,6 +29,30 @@ class Button extends GUIElement
   Boolean GetValue()
   {
     return button.pressreleased;
+  }
+
+  Object GetValue(String ID)
+  {
+    switch(ID)
+    {
+    case "value":
+      return button.pressreleased;
+
+    case "pressed":
+      return button.pressed;
+
+    case "released":
+      return button.released;
+
+    case "held":
+      return button.held;
+
+    case "hover":
+      return button.hover;
+      
+    default:
+      return button.pressreleased;
+    }
   }
 
   void PrintDebug()
