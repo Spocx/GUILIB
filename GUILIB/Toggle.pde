@@ -6,7 +6,7 @@ class Toggle extends GUIElement
   {
     super(_pos, _w, _h);
     textLines = 1;
-    knob = new ToggleKnob(new PVector(pos.x, pos.y), _h);
+    knob = new ToggleKnob(new PVector(pos.x, pos.y), _w/2,_h);
   }
 
   Boolean GetValue()
@@ -65,7 +65,7 @@ class Toggle extends GUIElement
       rect(pos.x, pos.y, knob.pos.x-pos.x+knob.w/2, h, 10);
     }
     knob.SetButtonFill();
-    rect(knob.pos.x, knob.pos.y, knob.w, knob.w, 10);
+    rect(knob.pos.x, knob.pos.y, knob.w, knob.h, 10);
     fill(style.textColor);
     SetTextOffset();
     text(ID, pos.x+textOffset.x, pos.y+textOffset.y);
@@ -82,11 +82,12 @@ class Toggle extends GUIElement
 
 class ToggleKnob extends GUIButton
 {
-  float w;
-  ToggleKnob(PVector _pos, float _w)
+  float w,h;
+  ToggleKnob(PVector _pos, float _w, float _h)
   {
     super(_pos);
     w = _w;
+    h = _h;
   }
 
   void CheckHover()

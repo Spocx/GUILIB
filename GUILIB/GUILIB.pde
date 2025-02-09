@@ -27,7 +27,7 @@ void setup()
   w.AddElement(new Slider(new PVector(100, 100), 200, 20, new PVector(0, width), 0.5), "slider12"); 
   GUIElement b2 = w.AddElement(new Button(new PVector(400, 100), 150, 40, "button 2"), "button2");
   w.AddElement(new MinMaxSlider(new PVector(100, 220), 200, 20, new PVector(0, 100), 0.5, 0.7), "slider34");
-  w.AddElement(new Toggle(new PVector(400, 200), 40, 20), "toggle2");
+  w.AddElement(new Toggle(new PVector(400, 200), 80, 20), "toggle2");
   w.AddElement(new Toggle(new PVector(400, 200), 40, 20), "toggle3");
   w.AddElement(new PlotPoint(new PVector(100, 410), 200, 200, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint21");
   w.AddElement(new PlotPoint(new PVector(100, 410), 100, 100, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint22");
