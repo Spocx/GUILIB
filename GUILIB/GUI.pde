@@ -1,6 +1,5 @@
 class GUI
 {
-  ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
   GUIElementGroups elementGroups = new GUIElementGroups();
   ArrayList<GUIWindow> windows = new ArrayList<GUIWindow>();
 
@@ -14,11 +13,6 @@ class GUI
   void Update()
   {
     UpdateGlobals();
-    for (GUIElement e : elements)
-    {
-      e.Update();
-    }
-
     for (GUIWindow w : windows)
     {
       w.Update();
@@ -35,29 +29,10 @@ class GUI
     {
       noStroke();
     }
-    for (GUIElement e : elements)
-    {
-      e.Show();
-    }
     for (GUIWindow w : windows)
     {
       w.Show();
     }
-  }
-
-  void SetGlobalTextSide(TEXTSIDE side)
-  {
-    for (GUIElement e : elements)
-    {
-      e.SetTextSide(side);
-    }
-  }
-
-  GUIElement AddElement(GUIElement element, String identifier)
-  {
-    elements.add(element);
-    element.ID = identifier;
-    return element;
   }
 
   GUIElementGroup CreateElementGroup(String identifier)
@@ -86,18 +61,6 @@ class GUI
     return null;
   }
 
-  GUIElement GetElement(String identifier)
-  {
-    for (GUIElement e : elements)
-    {
-      if (e.ID.equals(identifier))
-      {
-        return e;
-      }
-    }
-    return null;
-  }
-
   GUIWindow GetWindow(String identifier)
   {
     for (GUIWindow w : windows)
@@ -113,12 +76,6 @@ class GUI
   void PrintDebug()
   {
     println("===============================GUI class===================================");
-    println("======================[Elements===========================]");
-    for (int i = 0; i < elements.size(); i++)
-    {
-      elements.get(i).PrintDebug();
-    }
-
     println("[==========================Windows=====================]");
     for (int i = 0; i < windows.size(); i++)
     {
@@ -133,7 +90,7 @@ class GUI
   }
 }
 
-class GUIWindow
+class GUIWindow extends GUIElementHolder
 {
   PVector pos;
   float w, h;
@@ -240,16 +197,13 @@ class GUIWindow
   }
 }
 
-class GUIElementGroup extends ArrayList<GUIElement>
+class GUIElementHolder extends ArrayList<GUIElement>
 {
-  String ID = "";
-
-  GUIElementGroup(String identifier)
+  GUIElementHolder()
   {
-    super();
-    ID = identifier;
+   super(); 
   }
-
+  
   float   GetFloat (int elementIndex) {
     return (float)  get(elementIndex).GetValue();
   }
@@ -374,15 +328,25 @@ class GUIElementGroup extends ArrayList<GUIElement>
   PVector GetVec   (String elementID, String valueID) {
     return (PVector)GetElementByName(elementID).GetValue(valueID);
   }
-  
+
   void SetValue (int elementIndex, Object v)
   {
-      get(elementIndex).SetValue(v);
+    get(elementIndex).SetValue(v);
   }
-  
+
   void SetValue (String elementID, Object v)
   {
-     GetElementByName(elementID).SetValue(v); 
+    GetElementByName(elementID).SetValue(v);
+  }
+  
+  void SetValue (int elementIndex, String valueID, Object v)
+  {
+    get(elementIndex).SetValue(valueID,v);
+  }
+
+  void SetValue (String elementID, String valueID, Object v)
+  {
+    GetElementByName(elementID).SetValue(valueID,v);
   }
 
   GUIElement GetElementByName(String elementID)
@@ -396,6 +360,19 @@ class GUIElementGroup extends ArrayList<GUIElement>
     }
     return null;
   }
+}
+
+class GUIElementGroup extends GUIElementHolder
+{
+  String ID = "";
+
+  GUIElementGroup(String identifier)
+  {
+    super();
+    ID = identifier;
+  }
+
+  
 
   void AddElement(GUIElement element)
   {

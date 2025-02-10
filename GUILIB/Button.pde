@@ -7,9 +7,15 @@ class Button extends GUIElement
     super(_pos, _w, _h);
     textLines = 0;
     text = _t;
-    h = _h;
-    w = _w;
-    button = new ButtonGUIButton(_pos, _w, _h);
+    button = new ButtonGUIButton(pos, _w, _h);
+  }
+
+  Button(float _w, float _h, String _t)
+  {
+    super(_w, _h);
+    textLines = 0;
+    text = _t;
+    button = new ButtonGUIButton(pos, _w, _h);
   }
 
   void Update()
@@ -24,6 +30,11 @@ class Button extends GUIElement
     fill(style.elementBGColor);
     textAlign(CENTER, CENTER);
     text(text, pos.x+w/2, pos.y+h/2);
+  }
+
+  void SetValue(Object v)
+  {
+    text = (String)v;
   }
 
   Boolean GetValue()
@@ -49,7 +60,7 @@ class Button extends GUIElement
 
     case "hover":
       return button.hover;
-      
+
     default:
       return button.pressreleased;
     }

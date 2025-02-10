@@ -8,10 +8,22 @@ class Toggle extends GUIElement
     textLines = 1;
     knob = new ToggleKnob(new PVector(pos.x, pos.y), _w/2,_h);
   }
+  
+  Toggle(float _w, float _h)
+  {
+    super(_w, _h);
+    textLines = 1;
+    knob = new ToggleKnob(new PVector(pos.x, pos.y), _w/2,_h);
+  }
 
   Boolean GetValue()
   {
     return toggled;
+  }
+  
+  void SetValue(Object v)
+  {
+     toggled = (boolean)v;
   }
 
   Object GetValue(String ID)

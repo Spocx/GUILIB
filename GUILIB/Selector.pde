@@ -12,6 +12,15 @@ class Selector extends GUIElement
     leftButton = new SelectorButton(new PVector(_pos.x, _pos.y), _h, _h);
     rightButton = new SelectorButton(new PVector(_pos.x+_w-_h, _pos.y), _h, _h);
   }
+  
+  Selector(float _w, float _h, String[] _options)
+  {
+    super(_w, _h);
+    textLines = 0;
+    options = _options;
+    leftButton = new SelectorButton(new PVector(pos.x, pos.y), _h, _h);
+    rightButton = new SelectorButton(new PVector(pos.x+_w-_h, pos.y), _h, _h);
+  }
 
   void Update()
   {
@@ -60,6 +69,18 @@ class Selector extends GUIElement
     text(options[selection], pos.x+w/2, pos.y+h/2);
     text("<", pos.x+h/2, pos.y+h/2);
     text(">", pos.x+w-h/2, pos.y+h/2);
+  }
+
+  void SetValue(Object v)
+  {
+     String val = (String)v;
+     for(int i = 0; i < options.length; i++)
+     {
+      if(options[i].equals(val))
+      {
+         selection = i; 
+      }
+     }
   }
 
   Integer GetValue()

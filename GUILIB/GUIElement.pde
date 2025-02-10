@@ -14,10 +14,25 @@ class GUIElement
     w = _w;
     h = _h;
   }
+  
+  GUIElement(float _w, float _h)
+  {
+     pos = new PVector(0,0);
+     w = _w;
+     h = _h;
+  }
+  
+  GUIElement(PVector _pos)
+  {
+     pos = _pos;
+     w = 0;
+     h = 0;
+  }
 
   void Update() {};
   void Show() {};
   void SetValue(Object v) {};
+  void SetValue(String ID, Object v) {};
   Object GetValue() {return 0;};
   Object GetValue(String ID) {return 0;};
   void PrintDebug() {};

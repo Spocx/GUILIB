@@ -12,6 +12,16 @@ class PlotPoint extends GUIElement
     knob.pos.x = map(startX, 0, 1, pos.x+borderMargin, pos.x+w);
     knob.pos.y = map(startY, 0, 1, pos.y, pos.y+h-borderMargin);
   }
+  
+  PlotPoint(float _w, float _h, PVector _mmx, PVector _mmy, float startX, float startY)
+  {
+    super(_w, _h);
+    mmx = _mmx;
+    mmy = _mmy;
+    knob = new PlotPointKnob(new PVector(pos.x, pos.y));
+    knob.pos.x = map(startX, 0, 1, pos.x+borderMargin, pos.x+w);
+    knob.pos.y = map(startY, 0, 1, pos.y, pos.y+h-borderMargin);
+  }
 
   void Show()
   {
@@ -38,6 +48,40 @@ class PlotPoint extends GUIElement
     SetTextOffset();
     valueText = ID + ":\n" + "(" + nf(GetValue().x, 0, 2)+", "+nf(GetValue().y, 0, 2)+")";
     text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
+  }
+
+  void SetValue(String valueID, Object v)
+  {
+     float val = (float)v;
+     
+     switch(valueID)
+     {
+        case "xMin":
+        mmx.x = val;
+        break;
+        
+        case "xMax":
+        mmx.y = val;
+        break;
+        
+        case "yMin":
+        mmy.x = val;
+        break;
+        
+        case "yMax":
+        mmy.y = val;
+        break;
+        
+        case "x":
+        knob.pos.x = map(val,mmx.x,mmx.y,pos.x+borderMargin,pos.x+w);
+        knob.pos.x = constrain(knob.pos.x, pos.x+borderMargin, pos.x+w);
+        break;
+        
+        case "y":
+        knob.pos.y = map(val,mmy.x,mmy.y,pos.y,pos.y+h-borderMargin);
+        knob.pos.y = constrain(knob.pos.y, pos.y, pos.y+h-borderMargin);
+        break;
+     }
   }
 
   void DrawKnob()

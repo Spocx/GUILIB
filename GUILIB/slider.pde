@@ -16,6 +16,16 @@ class Slider extends GUIElement
     knob.pos.x = pos.x+percent*(super.w-knob.w);
   }
 
+  Slider(float _w, float _h, PVector _minmax, float _startpercent)
+  {
+    super(_w, _h);
+
+    minmax = _minmax;
+    knob = new SliderKnob(new PVector(pos.x, pos.y), h);
+    percent = _startpercent;
+    knob.pos.x = pos.x+percent*(super.w-knob.w);
+  }
+
   void Show()
   {
     DrawBG();
@@ -37,18 +47,18 @@ class Slider extends GUIElement
 
   void SetPosition(float x, float y)
   {
-     float xoff = x - pos.x;
-     float yoff = y - pos.y;
-     
-     pos.x += xoff;
-     pos.y += yoff;
-     knob.pos.x += xoff;
-     knob.pos.y += yoff;
+    float xoff = x - pos.x;
+    float yoff = y - pos.y;
+
+    pos.x += xoff;
+    pos.y += yoff;
+    knob.pos.x += xoff;
+    knob.pos.y += yoff;
   }
 
   void SetShowInt(boolean asInt)
   {
-     showAsInt = asInt; 
+    showAsInt = asInt;
   }
 
   void DrawBG()
@@ -76,15 +86,14 @@ class Slider extends GUIElement
   {
     fill(style.textColor);
     SetTextOffset();
-    if(showAsInt)
+    if (showAsInt)
     {
       valueText = ID + ":\n"+round(GetValue());
-      text(valueText, pos.x+textOffset.x,pos.y+textOffset.y);
-    }
-    else
+      text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
+    } else
     {
       valueText = ID + ":\n"+nf(GetValue(), 0, 2);
-      text(valueText, pos.x+textOffset.x,pos.y+textOffset.y);
+      text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
     }
   }
 
@@ -97,17 +106,45 @@ class Slider extends GUIElement
   {
     switch(ID)
     {
-      case "value":
+    case "value":
       return map(percent, 0, 1, minmax.x, minmax.y);
-      
-      case "percent":
+
+    case "percent":
       return percent;
-      
-      default:
+
+    default:
       return map(percent, 0, 1, minmax.x, minmax.y);
     }
   }
-  
+
+  void SetValue(Object v)
+  {
+    float val = (float)v;
+    knob.pos.x = pos.x+map(val, minmax.x, minmax.y, 0, w-knob.w);
+    knob.pos.x = constrain(knob.pos.x, pos.x, pos.x+w-knob.w);
+    percent = map(knob.pos.x, pos.x, pos.x+w-knob.w, 0, 1);
+  }
+
+  void SetValue(String valueID, Object v)
+  {
+    float val = (float)v;
+    switch(valueID)
+    {
+    case "value":
+      knob.pos.x = pos.x+map(val, minmax.x, minmax.y, 0, w-knob.w);
+      knob.pos.x = constrain(knob.pos.x, pos.x, pos.x+w-knob.w);
+      percent = map(knob.pos.x, pos.x, pos.x+w-knob.w, 0, 1);
+      break;
+    case "valueMin":
+      minmax.x = val;
+      break;
+
+    case "valueMax":
+      minmax.y = val;
+      break;
+    }
+  }
+
   float GetPercent()
   {
     return percent;

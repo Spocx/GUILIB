@@ -11,6 +11,53 @@ class MinMaxSlider extends Slider
     percent2 = _startpercent2;
     knob2.pos.x = pos.x+percent2*(w-knob2.w);
   }
+  
+  MinMaxSlider(float _w, float _h, PVector _minmax, float _startpercent1, float _startpercent2)
+  {
+    super(_w, _h, _minmax, _startpercent1);
+    knob2 = new SliderKnob(new PVector(pos.x, pos.y), h);
+    percent2 = _startpercent2;
+    knob2.pos.x = pos.x+percent2*(w-knob2.w);
+  }
+
+  void SetValue(String valueID, Object v)
+  {
+    float val = (float)v;
+    switch(valueID)
+    {
+       case "min":
+       knob.pos.x = pos.x+map(val,minmax.x,minmax.y,0,w-knob.w);
+       knob.pos.x = constrain(knob.pos.x, pos.x, knob2.pos.x-knob.w);
+       percent = map(knob.pos.x, pos.x, pos.x+w-knob.w, 0, 1);
+       break;
+       
+       case "max":
+       knob2.pos.x = pos.x+map(val,minmax.x,minmax.y,0,w-knob2.w);
+       knob2.pos.x = constrain(knob2.pos.x, knob.pos.x+knob.w, pos.x+w-knob2.w);
+       percent2 = map(knob2.pos.x, pos.x, pos.x+w-knob2.w, 0, 1);
+       break;
+       
+       case "pmin":
+       knob.pos.x = pos.x+map(val,0,1,0,w-knob.w);
+       knob.pos.x = constrain(knob.pos.x, pos.x, knob2.pos.x-knob.w);
+       percent = map(knob.pos.x, pos.x, pos.x+w-knob.w, 0, 1);
+       break;
+       
+       case "pmax":
+       knob2.pos.x = pos.x+map(val,0,1,0,w-knob2.w);
+       knob2.pos.x = constrain(knob2.pos.x, knob.pos.x+knob.w, pos.x+w-knob2.w);
+       percent2 = map(knob2.pos.x, pos.x, pos.x+w-knob2.w, 0, 1);
+       break;
+       
+       case "valueMin":
+       minmax.x = val;
+       break;
+       
+       case "valueMax":
+       minmax.y = val;
+       break;
+    }
+  }
 
   void Update()
   {

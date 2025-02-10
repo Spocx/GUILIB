@@ -4,7 +4,8 @@ class Graph extends GUIElement
   float borderMargin = 5;
   float min;
   float max;
-  Graph(PVector _pos, float _w, float _h, int _points, float _startmin, float _startmax, float _startvalue)
+  boolean autoMinMax = false;
+  Graph(PVector _pos, float _w, float _h, int _points, float _startmin, float _startmax, float _startvalue, boolean _autoMinMax)
   {
     super(_pos, _w, _h); 
     pointValues = new float[_points];
@@ -15,6 +16,21 @@ class Graph extends GUIElement
     min = _startmin;
     max = _startmax;
     textLines = 1;
+    autoMinMax = _autoMinMax;
+  }
+  
+  Graph(float _w, float _h, int _points, float _startmin, float _startmax, float _startvalue, boolean _autoMinMax)
+  {
+    super(_w, _h); 
+    pointValues = new float[_points];
+    for (int i = 0; i < _points; i++)
+    {
+      pointValues[i] = _startvalue;
+    }
+    min = _startmin;
+    max = _startmax;
+    textLines = 1;
+    autoMinMax = _autoMinMax;
   }
 
   void Update() {
@@ -76,6 +92,10 @@ class Graph extends GUIElement
     if ((float)v > max) {
       max = (float)v;
     }
+
+
+    float mmi=10000000;
+    float mma=-10000000;
     for (int i = 0; i < pointValues.length; i++)
     {
       if (i <  pointValues.length-1)
@@ -85,6 +105,20 @@ class Graph extends GUIElement
       {
         pointValues[i] = (float)v;
       }
+      if (autoMinMax)
+      {
+        if (pointValues[i] < mmi) {
+          mmi = pointValues[i];
+        }
+        if (pointValues[i] > mma) {
+          mma = pointValues[i];
+        }
+      }
+    }
+    if (autoMinMax)
+    {
+      min = mmi;
+      max = mma;
     }
   };
 
@@ -109,10 +143,12 @@ class Graph extends GUIElement
     println("  -type: Graph");
     println("  -min: " + nf(min, 0, 2) + " | max: " + nf(max, 0, 2));
     println("  -point values:");
+    String pvals = "     -";
     for (int i = 0; i < pointValues.length; i++)
     {
-      println("     -"+nf(pointValues[i], 0, 2));
+      pvals += ",(" + nf(pointValues[i], 0, 2) + ")";
     }
+    println(pvals);
     println("  -text direction: " + textSide);
     println();
   };
