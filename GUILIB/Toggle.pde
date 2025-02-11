@@ -6,24 +6,24 @@ class Toggle extends GUIElement
   {
     super(_pos, _w, _h);
     textLines = 1;
-    knob = new ToggleKnob(new PVector(pos.x, pos.y), _w/2,_h);
+    knob = new ToggleKnob(new PVector(pos.x, pos.y), _w/2, _h);
   }
-  
+
   Toggle(float _w, float _h)
   {
     super(_w, _h);
     textLines = 1;
-    knob = new ToggleKnob(new PVector(pos.x, pos.y), _w/2,_h);
+    knob = new ToggleKnob(new PVector(pos.x, pos.y), _w/2, _h);
   }
 
   Boolean GetValue()
   {
     return toggled;
   }
-  
+
   void SetValue(Object v)
   {
-     toggled = (boolean)v;
+    toggled = (boolean)v;
   }
 
   Object GetValue(String ID)
@@ -40,7 +40,7 @@ class Toggle extends GUIElement
 
   void Update()
   {
-    knob.Update();
+    knob.Update(parent);
 
     if (knob.pressreleased)
     {
@@ -67,21 +67,21 @@ class Toggle extends GUIElement
     knob.pos.y += yoff;
   }
 
-  void Show()
+  void Show(PGraphics window)
   {
-    fill(style.elementBGColor);
-    rect(pos.x, pos.y, w, h, 10);
+    window.fill(style.elementBGColor);
+    window.rect(pos.x, pos.y, w, h, 10);
     if (knob.pos.x-pos.x > 5)
     {
-      fill(style.elementColor);
-      rect(pos.x, pos.y, knob.pos.x-pos.x+knob.w/2, h, 10);
+      window.fill(style.elementColor);
+      window.rect(pos.x, pos.y, knob.pos.x-pos.x+knob.w/2, h, 10);
     }
-    knob.SetButtonFill();
-    rect(knob.pos.x, knob.pos.y, knob.w, knob.h, 10);
-    fill(style.textColor);
-    SetTextOffset();
+    knob.SetButtonFill(window);
+    window.rect(knob.pos.x, knob.pos.y, knob.w, knob.h, 10);
+    window.fill(style.textColor);
+    SetTextOffset(window);
     valueText = ID;
-    text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
+    window.text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
   }
 
   void PrintDebug()
@@ -95,7 +95,7 @@ class Toggle extends GUIElement
 
 class ToggleKnob extends GUIButton
 {
-  float w,h;
+  float w, h;
   ToggleKnob(PVector _pos, float _w, float _h)
   {
     super(_pos);
@@ -105,7 +105,7 @@ class ToggleKnob extends GUIButton
 
   void CheckHover()
   {
-    if (mousepos.x < pos.x+w && mousepos.x > pos.x && mousepos.y > pos.y && mousepos.y < pos.y+w)
+    if (mousepos.x < realx+w && mousepos.x > realx && mousepos.y > realy && mousepos.y < realy+w)
     {
       hover = true;
     } else

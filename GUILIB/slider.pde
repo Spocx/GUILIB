@@ -26,17 +26,17 @@ class Slider extends GUIElement
     knob.pos.x = pos.x+percent*(super.w-knob.w);
   }
 
-  void Show()
+  void Show(PGraphics window)
   {
-    DrawBG();
-    DrawFG();
-    DrawKnob();
-    DrawValue();
+    DrawBG(window);
+    DrawFG(window);
+    DrawKnob(window);
+    DrawValue(window);
   }
 
   void Update()
   {
-    knob.Update();
+    knob.Update(parent);
     if (knob.held)
     {
       knob.pos.x = mousepos.x-knob.heldOffsetX;
@@ -61,39 +61,39 @@ class Slider extends GUIElement
     showAsInt = asInt;
   }
 
-  void DrawBG()
+  void DrawBG(PGraphics window)
   {
-    fill(style.elementBGColor);
-    rect(pos.x, pos.y, w, h);
+    window.fill(style.elementBGColor);
+    window.rect(pos.x, pos.y, w, h);
   }
 
-  void DrawFG()
+  void DrawFG(PGraphics window)
   {
-    fill(style.elementColor);
+    window.fill(style.elementColor);
     if (percent > 0)
     {
-      rect(pos.x, pos.y, w*percent, h);
+      window.rect(pos.x, pos.y, w*percent, h);
     }
   }
 
-  void DrawKnob()
+  void DrawKnob(PGraphics window)
   {
-    knob.SetButtonFill();
-    rect(knob.pos.x, knob.pos.y, knob.w, knob.h);
+    knob.SetButtonFill(window);
+    window.rect(knob.pos.x, knob.pos.y, knob.w, knob.h);
   }
 
-  void DrawValue()
+  void DrawValue(PGraphics window)
   {
-    fill(style.textColor);
-    SetTextOffset();
+    window.fill(style.textColor);
+    SetTextOffset(window);
     if (showAsInt)
     {
       valueText = ID + ":\n"+round(GetValue());
-      text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
+      window.text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
     } else
     {
       valueText = ID + ":\n"+nf(GetValue(), 0, 2);
-      text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
+      window.text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
     }
   }
 
@@ -155,7 +155,6 @@ class Slider extends GUIElement
     println("ID: " + ID);
     println("  -type: Slider");
     println("  -value: " + nf(GetValue(), 0, 2));
-    println("  -text direction: " + textSide);
     println();
   }
 }
@@ -174,7 +173,7 @@ class SliderKnob extends GUIButton
 
   void CheckHover()
   {
-    if (mousepos.x < pos.x+w && mousepos.x > pos.x && mousepos.y > pos.y && mousepos.y < pos.y+h)
+    if (mousepos.x < realx+w && mousepos.x > realx && mousepos.y > realy && mousepos.y < realy+h)
     {
       hover = true;
     } else

@@ -22,9 +22,9 @@ void setup()
 
 
 
-  GUIWindow w = gui.CreateWindow(new GUIWindow(new PVector(700, 100), 500, 600), "window");
+  GUIWindow w = gui.CreateWindow(new GUIWindow(new PVector(600, 100), 500, 600), "window");
 
-
+  GUIElement graph = w.AddElement(new Graph(200, 100, 50, 0, 1, 50, false), "FPS");
   GUIElement s10 = w.AddElement(new Slider(new PVector(100, 100), 200, 20, new PVector(0, width), 0.5), "slider10"); 
   w.AddElement(new PlotPoint(new PVector(100, 410), 200, 200, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint20");
   w.AddElement(new Slider(new PVector(100, 100), 200, 20, new PVector(0, width), 0.5), "slider11"); 
@@ -33,9 +33,13 @@ void setup()
   w.AddElement(new MinMaxSlider(new PVector(100, 220), 200, 20, new PVector(0, 100), 0.5, 0.7), "slider34");
   w.AddElement(new Toggle(new PVector(400, 200), 80, 20), "toggle2");
   w.AddElement(new Toggle(new PVector(400, 200), 40, 20), "toggle3");
-  GUIElement graph = w.AddElement(new Graph(200, 100, 50, 0, 1, 50, false), "FPS");
-  w.AddElement(new PlotPoint(new PVector(100, 410), 150, 150, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint21");
   w.AddElement(new PlotPoint(new PVector(100, 410), 100, 100, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint22");
+  w.AddElement(new PlotPoint(new PVector(100, 410), 150, 150, new PVector(0, 255), new PVector(0, 255), 0.5, 0.5), "plotpoint21");
+
+
+
+
+
 
 
   GUIElementGroup g = gui.CreateElementGroup("group");
@@ -59,22 +63,30 @@ void draw()
 {
   background(bgc);
 
-  gui.Update();
-  gui.Show();
+
 
 
   GUIWindow w = gui.GetWindow("window");
   if (mousePressed && mouseButton == RIGHT)
   {
-    w.pos.x = mouseX;
-    w.pos.y = mouseY;
+    int wx = mouseX-(int)w.pos.x;
+    int wy = mouseY-(int)w.pos.y;
+
+    wx = constrain(wx, 100, 700);
+    wy = constrain(wy, 100, 700);
+    w.SetSize(wx, (int)wy);
+    //w.pos.x = mouseX;
+    // w.pos.y = mouseY;
   }
 
   GUIElementGroup g = gui.GetElementGroup("group");
   g.SetValue("FPS", frameRate);
   if (g.GetBool("button1"))
   {
-    g.SetValue("plotpoint2", "xMin",400.0);
+    g.SetValue("plotpoint2", "xMin", 400.0);
     gui.PrintDebug();
   }
+
+  gui.Update();
+  gui.Show();
 }

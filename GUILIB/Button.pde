@@ -2,6 +2,7 @@ class Button extends GUIElement
 {
   ButtonGUIButton button;
   String text = "Button";
+
   Button(PVector _pos, float _w, float _h, String _t)
   {
     super(_pos, _w, _h);
@@ -20,16 +21,16 @@ class Button extends GUIElement
 
   void Update()
   {
-    button.Update();
+    button.Update(parent);
   }
 
-  void Show()
+  void Show(PGraphics window)
   {
-    button.SetButtonFill();
-    rect(pos.x, pos.y, w, h, 5);
-    fill(style.elementBGColor);
-    textAlign(CENTER, CENTER);
-    text(text, pos.x+w/2, pos.y+h/2);
+    button.SetButtonFill(window);
+    window.rect(pos.x, pos.y, w, h, 5);
+    window.fill(style.elementBGColor);
+    window.textAlign(CENTER, CENTER);
+    window.text(text, pos.x+w/2, pos.y+h/2);
   }
 
   void SetValue(Object v)
@@ -87,7 +88,7 @@ class ButtonGUIButton extends GUIButton
 
   void CheckHover()
   {
-    if (mousepos.x < pos.x+w && mousepos.x > pos.x && mousepos.y > pos.y && mousepos.y < pos.y+h)
+    if (mousepos.x < realx+w && mousepos.x > realx && mousepos.y > realy && mousepos.y < realy+h)
     {
       hover = true;
     } else

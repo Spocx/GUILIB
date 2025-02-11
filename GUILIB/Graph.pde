@@ -1,10 +1,11 @@
 class Graph extends GUIElement
 {
   float[] pointValues;
-  float borderMargin = 5;
-  float min;
-  float max;
-  boolean autoMinMax = false;
+  float   borderMargin = 5;
+  float   min;
+  float   max;
+  boolean autoMinMax   = false;
+
   Graph(PVector _pos, float _w, float _h, int _points, float _startmin, float _startmax, float _startvalue, boolean _autoMinMax)
   {
     super(_pos, _w, _h); 
@@ -18,7 +19,7 @@ class Graph extends GUIElement
     textLines = 1;
     autoMinMax = _autoMinMax;
   }
-  
+
   Graph(float _w, float _h, int _points, float _startmin, float _startmax, float _startvalue, boolean _autoMinMax)
   {
     super(_w, _h); 
@@ -33,55 +34,53 @@ class Graph extends GUIElement
     autoMinMax = _autoMinMax;
   }
 
-  void Update() {
-  };
-  void Show() {
-    DrawBG();
-    DrawBorders();
-    DrawLines();
-    DrawValue();
+  void Show(PGraphics window) {
+    DrawBG(window);
+    DrawBorders(window);
+    DrawLines(window);
+    DrawValue(window);
   };
 
-  void DrawLines()
+  void DrawLines(PGraphics window)
   {
-    stroke(style.elementColor);
-    strokeWeight(2);
+    window.stroke(style.elementColor);
+    window.strokeWeight(2);
     float ww = w-borderMargin;
     float hh = h-borderMargin;
     for (int i = 0; i < pointValues.length-1; i++)
     {
-      line(pos.x+borderMargin-2+ww/(pointValues.length-1)*(i), map(pointValues[i], min, max, pos.y+hh, pos.y), pos.x+borderMargin-2+ww/(pointValues.length-1)*(i+1), map(pointValues[i+1], min, max, pos.y+hh, pos.y));
+      window.line(pos.x+borderMargin-2+ww/(pointValues.length-1)*(i), map(pointValues[i], min, max, pos.y+hh, pos.y), pos.x+borderMargin-2+ww/(pointValues.length-1)*(i+1), map(pointValues[i+1], min, max, pos.y+hh, pos.y));
     }
-    noStroke();
+    window.noStroke();
   }
 
-  void DrawBG()
+  void DrawBG(PGraphics window)
   {
-    fill(style.elementBGColor);
+    window.fill(style.elementBGColor);
     float ww = w-borderMargin;
     for (int i = 0; i < pointValues.length-1; i++)
     {
-      rect(pos.x+borderMargin-2+ww/(pointValues.length-1)*i+w/(pointValues.length-1), pos.y, 1, h);
+      window.rect(pos.x+borderMargin-2+ww/(pointValues.length-1)*i+w/(pointValues.length-1), pos.y, 1, h);
     }
   }
 
-  void DrawValue()
+  void DrawValue(PGraphics window)
   {
-    fill(style.textColor);
-    SetTextOffset();
+    window.fill(style.textColor);
+    SetTextOffset(window);
     valueText = ID;
-    text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
-    textAlign(LEFT, TOP);
-    text(max, pos.x+5, pos.y);
-    textAlign(LEFT, BOTTOM);
-    text(min, pos.x+5, pos.y+h-5);
+    window.text(valueText, pos.x+textOffset.x, pos.y+textOffset.y);
+    window.textAlign(LEFT, TOP);
+    window.text(max, pos.x+5, pos.y);
+    window.textAlign(LEFT, BOTTOM);
+    window.text(min, pos.x+5, pos.y+h-5);
   }
 
-  void DrawBorders()
+  void DrawBorders(PGraphics window)
   {
-    fill(style.elementColor);
-    rect(pos.x, pos.y, 5, h);
-    rect(pos.x, pos.y+h-5, w, 5);
+    window.fill(style.elementColor);
+    window.rect(pos.x, pos.y, 5, h);
+    window.rect(pos.x, pos.y+h-5, w, 5);
   }
 
   void SetValue(Object v)
@@ -138,6 +137,7 @@ class Graph extends GUIElement
       return pointValues[int(ID)];
     }
   };
+
   void PrintDebug() {
     println("ID: " + ID);
     println("  -type: Graph");
@@ -149,7 +149,6 @@ class Graph extends GUIElement
       pvals += ",(" + nf(pointValues[i], 0, 2) + ")";
     }
     println(pvals);
-    println("  -text direction: " + textSide);
     println();
   };
 }

@@ -12,7 +12,7 @@ class Selector extends GUIElement
     leftButton = new SelectorButton(new PVector(_pos.x, _pos.y), _h, _h);
     rightButton = new SelectorButton(new PVector(_pos.x+_w-_h, _pos.y), _h, _h);
   }
-  
+
   Selector(float _w, float _h, String[] _options)
   {
     super(_w, _h);
@@ -24,8 +24,8 @@ class Selector extends GUIElement
 
   void Update()
   {
-    leftButton.Update();
-    rightButton.Update();
+    leftButton.Update(parent);
+    rightButton.Update(parent);
 
     if (leftButton.pressreleased)
     {
@@ -51,36 +51,36 @@ class Selector extends GUIElement
     rightButton.pos.y += yoff;
   }
 
-  void Show()
+  void Show(PGraphics window)
   {
     //self
-    fill(style.elementColor);
-    rect(pos.x+h, pos.y, w-h*2, h);
+    window.fill(style.elementColor);
+    window.rect(pos.x+h, pos.y, w-h*2, h);
 
     //buttons
-    leftButton.SetButtonFill();
-    rect(leftButton.pos.x, leftButton.pos.y, leftButton.w, leftButton.h);
-    rightButton.SetButtonFill();
-    rect(rightButton.pos.x, rightButton.pos.y, rightButton.w, rightButton.h);
+    leftButton.SetButtonFill(window);
+    window.rect(leftButton.pos.x, leftButton.pos.y, leftButton.w, leftButton.h);
+    rightButton.SetButtonFill(window);
+    window.rect(rightButton.pos.x, rightButton.pos.y, rightButton.w, rightButton.h);
 
     //text
-    fill(style.elementBGColor);
-    textAlign(CENTER, CENTER);
-    text(options[selection], pos.x+w/2, pos.y+h/2);
-    text("<", pos.x+h/2, pos.y+h/2);
-    text(">", pos.x+w-h/2, pos.y+h/2);
+    window.fill(style.elementBGColor);
+    window.textAlign(CENTER, CENTER);
+    window.text(options[selection], pos.x+w/2, pos.y+h/2);
+    window.text("<", pos.x+h/2, pos.y+h/2);
+    window.text(">", pos.x+w-h/2, pos.y+h/2);
   }
 
   void SetValue(Object v)
   {
-     String val = (String)v;
-     for(int i = 0; i < options.length; i++)
-     {
-      if(options[i].equals(val))
+    String val = (String)v;
+    for (int i = 0; i < options.length; i++)
+    {
+      if (options[i].equals(val))
       {
-         selection = i; 
+        selection = i;
       }
-     }
+    }
   }
 
   Integer GetValue()
@@ -92,13 +92,13 @@ class Selector extends GUIElement
   {
     switch(ID)
     {
-      case "value":
+    case "value":
       return selection;
-      
-      case "valueName":
+
+    case "valueName":
       return options[selection];
-      
-      default:
+
+    default:
       return selection;
     }
   }
@@ -124,7 +124,7 @@ class SelectorButton extends GUIButton
 
   void CheckHover()
   {
-    if (mousepos.x < pos.x+w && mousepos.x > pos.x && mousepos.y > pos.y && mousepos.y < pos.y+h)
+    if (mousepos.x < realx+w && mousepos.x > realx && mousepos.y > realy && mousepos.y < realy+h)
     {
       hover = true;
     } else

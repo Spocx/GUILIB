@@ -90,120 +90,13 @@ class GUI
   }
 }
 
-class GUIWindow extends GUIElementHolder
-{
-  PVector pos;
-  float w, h;
-  String identifier;
-
-  ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
-
-  GUIWindow(PVector _pos, float _w, float _h)
-  {
-    pos = _pos;
-    w = _w;
-    h = _h;
-  }
-
-  GUIElement AddElement(GUIElement element, String identifier)
-  {
-    elements.add(element);
-    element.ID = identifier;
-    return element;
-  }
-
-  GUIElement GetElement(String identifier)
-  {
-    for (int i = 0; i < elements.size(); i++)
-    {
-      if (elements.get(i).ID == identifier)
-      {
-        return elements.get(i);
-      }
-    }
-    return null;
-  }
-
-  void Update()
-  {
-    float cx = style.windowSpacingMarginX;
-    float cy = style.windowSpacingMarginY;
-    float biggestx = 0;
-    for (GUIElement e : elements)
-    {
-      if (e.autoPosition)
-      {
-        if (cy + e.h + e.GetTextHeight() > h-style.windowSpacingMarginY*2)
-        {
-          cy = style.windowSpacingMarginY;
-          cx += biggestx+style.windowElementMarginX;
-          biggestx = 0;
-        }
-
-
-        if (e.w > biggestx) {
-          biggestx = e.w;
-        }
-
-        if (e.GetTextWidth() > biggestx) {
-          biggestx = e.GetTextWidth();
-        }
-
-        e.SetPosition(pos.x+cx, pos.y+cy+ e.GetTextHeight());
-        cy += e.h + style.windowElementMarginY+ e.GetTextHeight();
-      }
-      e.Update();
-    }
-  }
-
-  void Show()
-  {
-    if (style.doWindowStroke)
-    {
-      strokeWeight(style.windowStrokeWeight);
-      stroke(style.windowStrokeColor);
-    } else
-    {
-      noStroke();
-    }
-    fill(style.windowColor);
-    rect(pos.x, pos.y, w, h, style.windowCornerRounding);
-
-    if (style.doElementStroke)
-    {
-      strokeWeight(style.elementStrokeWeight);
-      stroke(style.elementStrokeColor);
-    } else
-    {
-      noStroke();
-    }
-    for (GUIElement e : elements)
-    {
-      e.Show();
-    }
-  }
-
-  void PrintDebug()
-  {
-    println("------------WindowName: "+ identifier + "----------------");
-    println("pos: " + pos.x + "-" + pos.y);
-    println("size: " + w + "-" + h);
-    println();
-    println("---------Elements-----------");
-    for (int i = 0; i < elements.size(); i++)
-    {
-      elements.get(i).PrintDebug();
-    }
-  }
-}
-
 class GUIElementHolder extends ArrayList<GUIElement>
 {
   GUIElementHolder()
   {
-   super(); 
+    super();
   }
-  
+
   float   GetFloat (int elementIndex) {
     return (float)  get(elementIndex).GetValue();
   }
@@ -338,15 +231,15 @@ class GUIElementHolder extends ArrayList<GUIElement>
   {
     GetElementByName(elementID).SetValue(v);
   }
-  
+
   void SetValue (int elementIndex, String valueID, Object v)
   {
-    get(elementIndex).SetValue(valueID,v);
+    get(elementIndex).SetValue(valueID, v);
   }
 
   void SetValue (String elementID, String valueID, Object v)
   {
-    GetElementByName(elementID).SetValue(valueID,v);
+    GetElementByName(elementID).SetValue(valueID, v);
   }
 
   GUIElement GetElementByName(String elementID)
@@ -372,7 +265,7 @@ class GUIElementGroup extends GUIElementHolder
     ID = identifier;
   }
 
-  
+
 
   void AddElement(GUIElement element)
   {
@@ -440,16 +333,19 @@ class GUIButton
   boolean pressed = false;
   boolean released = false;
   boolean pressreleased = false;
+  float realx, realy;
 
   GUIButton(PVector _pos)
   {
     pos = _pos;
   }
 
-  void Update()
+  void Update(GUIWindow window)
   {
     CheckHover();
     UpdateState();
+    realx = pos.x+window.pos.x;
+    realy = pos.y+window.pos.y;
   }
 
   void CheckHover()
@@ -457,14 +353,14 @@ class GUIButton
     hover = false;
   }
 
-  void SetButtonFill()
+  void SetButtonFill(PGraphics window)
   {
     if (held) {
-      fill(style.interactableHeldColor);
+      window.fill(style.interactableHeldColor);
     } else if (hover) {
-      fill(style.interactableHoverColor);
+      window.fill(style.interactableHoverColor);
     } else {
-      fill(style.interactableColor);
+      window.fill(style.interactableColor);
     }
   }
 
