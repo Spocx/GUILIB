@@ -19,7 +19,7 @@ class StyleSetting
 
   //UI window colors
   boolean doWindowStroke       = true;
-  color windowColor            = color(100, 30, 10);
+  color windowColor            = color(100, 30, 10,200);
   color windowStrokeColor      = color(120, 80, 120);
   float windowStrokeWeight     = 5;
   float windowCornerRounding   = 10;
