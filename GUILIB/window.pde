@@ -7,6 +7,7 @@ class GUIWindow extends GUIElementHolder
   PGraphics window;
   int windowmargin = 2;
   WindowButton resizeButton;
+  WindowButton tabBar;
 
   ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 
@@ -17,6 +18,7 @@ class GUIWindow extends GUIElementHolder
     h = _h;
     
     resizeButton = new WindowButton(new PVector(w-20,h-20),20,20);
+    tabBar = new WindowButton(new PVector(pos.x,pos.y-10),w,20);
     CreateMask();
   }
   
@@ -55,11 +57,18 @@ class GUIWindow extends GUIElementHolder
   void Update()
   {
     resizeButton.Update();
+    tabBar.Update();
+    
+    if(tabBar.held)
+    {
+       pos.x = mousepos.x-tabBar.heldOffsetX;
+       pos.y = mousepos.y-tabBar.heldOffsetY+20;
+    }
     
     if(resizeButton.held)
     {
-          int wx = mouseX-(int)pos.x;
-          int wy = mouseY-(int)pos.y;
+          int wx = (int)mousepos.x-(int)pos.x;
+          int wy = (int)mousepos.y-(int)pos.y;
           
           wx = constrain(wx,100,5000);
           wy = constrain(wy,100,5000);
@@ -100,7 +109,7 @@ class GUIWindow extends GUIElementHolder
   {
     noStroke();
     fill(style.windowColor);
-    rect(pos.x, pos.y, w, h, style.windowCornerRounding);
+    rect(pos.x, pos.y, w, h, 0,0,style.windowCornerRounding,style.windowCornerRounding);
 
     if (style.doElementStroke)
     {
@@ -125,15 +134,18 @@ class GUIWindow extends GUIElementHolder
       strokeWeight(style.windowStrokeWeight);
       stroke(style.windowStrokeColor);
       noFill();
-      rect(pos.x, pos.y, w, h, style.windowCornerRounding);
+      rect(pos.x, pos.y, w, h, 0,0,style.windowCornerRounding,style.windowCornerRounding);
     }
     
     resizeButton.SetButtonFill();
     resizeButton.pos.x = pos.x+w-resizeButton.w;
     resizeButton.pos.y = pos.y+h-resizeButton.h;
     rect(resizeButton.pos.x,resizeButton.pos.y,resizeButton.w,resizeButton.h,0,0,style.windowCornerRounding,0);
-    
-    if(resizeButton.hover){println("G");}
+    tabBar.pos.x = pos.x;
+    tabBar.pos.y = pos.y-tabBar.h;
+    tabBar.w = w;
+    tabBar.SetButtonFill();
+    rect(tabBar.pos.x,tabBar.pos.y,tabBar.w,tabBar.h,style.windowCornerRounding,style.windowCornerRounding,0,0);
   }
 
   void PrintDebug()

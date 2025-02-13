@@ -8,7 +8,6 @@
  non clickthrough windows, window depth. don't think i'll worry about element depth just yet, but might be easy to make if i already have window depth
  collapsable windows after maskable windows
  window menu bar (to drag it, or minimize it, or straight up make it dissapear)
- resizable windows
  tabs
  subwindows (imagine putting a divider into a window, splitting it up into 2 smaller windows
  
