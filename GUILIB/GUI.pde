@@ -347,6 +347,12 @@ class GUIButton
     realx = pos.x+window.pos.x;
     realy = pos.y+window.pos.y;
   }
+  
+  void Update()
+  {
+    CheckHover();
+    UpdateState();
+  }
 
   void CheckHover()
   {
@@ -361,6 +367,17 @@ class GUIButton
       window.fill(style.interactableHoverColor);
     } else {
       window.fill(style.interactableColor);
+    }
+  }
+
+  void SetButtonFill()
+  {
+    if (held) {
+      fill(style.interactableHeldColor);
+    } else if (hover) {
+      fill(style.interactableHoverColor);
+    } else {
+      fill(style.interactableColor);
     }
   }
 

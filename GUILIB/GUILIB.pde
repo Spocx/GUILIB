@@ -69,12 +69,7 @@ void draw()
   GUIWindow w = gui.GetWindow("window");
   if (mousePressed && mouseButton == RIGHT)
   {
-    int wx = mouseX-(int)w.pos.x;
-    int wy = mouseY-(int)w.pos.y;
 
-    wx = constrain(wx, 100, 700);
-    wy = constrain(wy, 100, 700);
-    w.SetSize(wx, (int)wy);
     //w.pos.x = mouseX;
     // w.pos.y = mouseY;
   }

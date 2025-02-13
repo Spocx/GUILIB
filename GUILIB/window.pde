@@ -1,10 +1,12 @@
 class GUIWindow extends GUIElementHolder
 {
+  
   PVector pos;
   int w, h;
   String identifier;
   PGraphics window;
   int windowmargin = 2;
+  WindowButton resizeButton;
 
   ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 
@@ -14,6 +16,7 @@ class GUIWindow extends GUIElementHolder
     w = _w;
     h = _h;
     
+    resizeButton = new WindowButton(new PVector(w-20,h-20),20,20);
     CreateMask();
   }
   
@@ -51,6 +54,18 @@ class GUIWindow extends GUIElementHolder
 
   void Update()
   {
+    resizeButton.Update();
+    
+    if(resizeButton.held)
+    {
+          int wx = mouseX-(int)pos.x;
+          int wy = mouseY-(int)pos.y;
+          
+          wx = constrain(wx,100,5000);
+          wy = constrain(wy,100,5000);
+          
+          SetSize(wx+(int)resizeButton.heldOffsetX, wy+(int)resizeButton.heldOffsetY);
+    }
     float cx = style.windowSpacingMarginX;
     float cy = style.windowSpacingMarginY;
     float biggestx = 0;
@@ -112,6 +127,13 @@ class GUIWindow extends GUIElementHolder
       noFill();
       rect(pos.x, pos.y, w, h, style.windowCornerRounding);
     }
+    
+    resizeButton.SetButtonFill();
+    resizeButton.pos.x = pos.x+w-resizeButton.w;
+    resizeButton.pos.y = pos.y+h-resizeButton.h;
+    rect(resizeButton.pos.x,resizeButton.pos.y,resizeButton.w,resizeButton.h,0,0,style.windowCornerRounding,0);
+    
+    if(resizeButton.hover){println("G");}
   }
 
   void PrintDebug()
@@ -126,4 +148,27 @@ class GUIWindow extends GUIElementHolder
       elements.get(i).PrintDebug();
     }
   }
+}
+
+class WindowButton extends GUIButton
+{
+  float w,h;
+   WindowButton(PVector _pos, float _w, float _h)
+   {
+      super(_pos); 
+      w = _w;
+      h = _h;
+   }
+   
+   void CheckHover()
+  {
+    if (mousepos.x < pos.x+w && mousepos.x > pos.x && mousepos.y > pos.y && mousepos.y < pos.y+h)
+    {
+      hover = true;
+    } else
+    {
+      hover = false;
+    }
+  }
+
 }
